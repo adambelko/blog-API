@@ -9,6 +9,7 @@ const passport = require("passport");
 require("./passportConfig")(passport);
 
 const indexRouter = require("./routes/index");
+const adminRouter = require("./routes/admin");
 
 const app = express();
 
@@ -29,8 +30,11 @@ app.use(passport.initialize());
 
 app.use("/", indexRouter);
 
-const port = 3000;
+const jwtAuth = passport.authenticate("jwt", { session: false });
 
+app.use("/admin", jwtAuth, adminRouter);
+
+const port = 3000;
 app.listen(port);
 
 // catch 404 and forward to error handler
