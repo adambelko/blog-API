@@ -14,4 +14,4 @@ PostSchema.virtual("url").get(function () {
   return `/${formattedTitle}`;
 });
 
-module.exports = mongoose.model("Message", PostSchema);
+module.exports = mongoose.model("Post", PostSchema);

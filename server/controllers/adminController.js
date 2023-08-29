@@ -12,32 +12,33 @@ exports.newPost_get = (req, res, next) => {
 exports.newPost_post = asyncHandler(async (req, res, next) => {
   const newPost = new Post({
     title: req.body.title,
-    formattedTitle: this.title.replace(/\s+/g, "-").toLowerCase(),
+    formattedTitle: req.body.title.replace(/\s+/g, "-").toLowerCase(),
     body: req.body.body,
-    // implement publish
+    published: req.body.published,
     timestamp: Date.now(),
   });
 
   newPost.save();
+  res.send("New post created");
 });
 
-exports.editPost_get = asyncHandler(async (req, res, next) => {
-  const editPost = req.params.postTitle;
+exports.editPost_get = (req, res, next) => {
+  res.send("Edit post page");
+};
+
+exports.editPost_post = asyncHandler(async (req, res, next) => {
+  const editPostId = req.params.postId;
 
   const editPostData = {
     title: req.body.title,
     formattedTitle: req.body.title.replace(/\s+/g, "-").toLowerCase(),
     body: req.body.body,
-    // implement updating timestamp if needed
+    published: req.body.published,
   };
 
-  const result = await Post.updateOne({ _id: editPost }, editPostData);
+  const result = await Post.updateOne({ _id: editPostId }, editPostData);
 
-  res.json({ message: "Post updated successfully" });
-});
-
-exports.editPost_post = asyncHandler((req, res, next) => {
-  res.send("Edit post impplementation");
+  res.json({ message: "Post editted successfully" });
 });
 
 exports.deletePost_post = asyncHandler(async (req, res, next) => {

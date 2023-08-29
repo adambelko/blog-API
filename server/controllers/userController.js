@@ -34,7 +34,7 @@ exports.login_get = (req, res, next) => {
   res.status(200);
 };
 
-exports.login_post = asyncHandler(async (req, res, next) => {
+exports.login_post = async (req, res, next) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username: username });
 
@@ -53,7 +53,7 @@ exports.login_post = asyncHandler(async (req, res, next) => {
   });
 
   res.json({ message: "Logged in successfully", token });
-});
+};
 
 exports.postDetail_get = asyncHandler(async (req, res, next) => {
   const postTitle = req.params.postTitle;
