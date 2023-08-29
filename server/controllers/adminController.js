@@ -14,10 +14,42 @@ exports.newPost_post = asyncHandler(async (req, res, next) => {
     title: req.body.title,
     formattedTitle: this.title.replace(/\s+/g, "-").toLowerCase(),
     body: req.body.body,
+    // implement publish
     timestamp: Date.now(),
   });
 
   newPost.save();
+});
+
+exports.editPost_get = asyncHandler(async (req, res, next) => {
+  const editPost = req.params.postTitle;
+
+  const editPostData = {
+    title: req.body.title,
+    formattedTitle: req.body.title.replace(/\s+/g, "-").toLowerCase(),
+    body: req.body.body,
+    // implement updating timestamp if needed
+  };
+
+  const result = await Post.updateOne({ _id: editPost }, editPostData);
+
+  res.json({ message: "Post updated successfully" });
+});
+
+exports.editPost_post = asyncHandler((req, res, next) => {
+  res.send("Edit post impplementation");
+});
+
+exports.deletePost_post = asyncHandler(async (req, res, next) => {
+  const deletePost = req.params.postId;
+
+  const result = await Post.deleteOne({ _id: deletePost });
+
+  res.json({ message: "Post deleted successfully" });
+});
+
+exports.changePostPublicity_post = asyncHandler((req, res, next) => {
+  res.send("publish / unpublish post not implemented yet");
 });
 
 exports.logout_get = (req, res, next) => {
