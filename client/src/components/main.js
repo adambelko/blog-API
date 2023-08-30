@@ -11,7 +11,6 @@ const StyledMain = styled.main`
   flex-grow: 1;
   max-width: 685px;
   margin: auto;
-  margin-top: 2em;
 `;
 
 const Main = () => {

@@ -17,12 +17,7 @@ const BlogNameWrapper = styled.h1`
   a {
     display: flex;
     align-items: center;
-    gap: 0.3em;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
+    gap: 0.5em;
   }
 
   img {
@@ -37,7 +32,6 @@ const NavigationWrapper = styled.nav`
 
   ul {
     display: flex;
-    list-style: none;
     gap: 1.3em;
   }
 `;

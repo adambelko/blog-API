@@ -12,5 +12,15 @@ html {
 }
 
 a {
+	text-decoration: none;
 	color: #1E2020;
+}
+
+a:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+ul {
+	list-style: none;
 }
