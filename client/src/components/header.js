@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import pepe from "../images/avatar.png";
 
@@ -6,8 +7,8 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   margin: auto;
   margin-top: 3em;
-  max-width: 685px;
-  border: 1px solid black;
+  max-width: 885px;
+  margin-bottom: 3em;
 `;
 
 const BlogNameWrapper = styled.h1`
@@ -38,13 +39,13 @@ const NavigationWrapper = styled.nav`
     display: flex;
     list-style: none;
     gap: 1.3em;
-    a {
-      text-decoration: none;
-    }
+  }
+`;
 
-    a:hover {
-      text-decoration: underline;
-    }
+const StyledLink = styled(NavLink)`
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
   }
 `;
 
@@ -52,19 +53,19 @@ const Header = () => {
   return (
     <StyledHeader>
       <BlogNameWrapper>
-        <a href="/">
+        <StyledLink to="/">
           <img src={pepe} alt="img" />
           <span>Adam Belko</span>
-        </a>
+        </StyledLink>
       </BlogNameWrapper>
       <NavigationWrapper>
         <ul>
-          <a href="/story">
+          <StyledLink to="/story">
             <li>STORY</li>
-          </a>
-          <a href="https://github.com/adambelko">
+          </StyledLink>
+          <StyledLink to="https://github.com/adambelko">
             <li>GITHUB</li>
-          </a>
+          </StyledLink>
         </ul>
       </NavigationWrapper>
     </StyledHeader>
