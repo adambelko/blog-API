@@ -6,11 +6,9 @@ const User = require("../models/user");
 const Post = require("../models/post");
 
 exports.postList_get = asyncHandler(async (req, res, next) => {
-  const postList = await Post.find({}, "title timestamp")
-    .sort({ timestamp: 1 })
-    .exec();
+  const postList = await Post.find({}).sort({ timestamp: 1 }).exec();
 
-  res.json(postList);
+  res.json({ postList });
 });
 
 exports.about_get = (req, res, next) => {
