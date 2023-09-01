@@ -10,6 +10,7 @@ const passport = require("passport");
 require("./passportConfig")(passport);
 
 const indexRouter = require("./routes/index");
+const tagRouter = require("./routes/tag");
 const adminRouter = require("./routes/admin");
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(passport.initialize());
 
+app.use("/tags", tagRouter);
 app.use("/", indexRouter);
 
 const jwtAuth = passport.authenticate("jwt", { session: false });

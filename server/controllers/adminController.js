@@ -15,6 +15,7 @@ exports.newPost_post = asyncHandler(async (req, res, next) => {
     formattedTitle: req.body.title.replace(/\s+/g, "-").toLowerCase(),
     body: req.body.body,
     published: req.body.published,
+    tags: req.body.tags,
     timestamp: Date.now(),
   });
 
