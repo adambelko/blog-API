@@ -3,14 +3,20 @@ const asyncHandler = require("express-async-handler");
 const Post = require("../models/post");
 
 exports.tagList_get = asyncHandler(async (req, res, next) => {
-  const posts = await Post.find({}, "tags");
+  const posts = await Post.find({}, ["tags", "formattedTags"]);
   const tagList = posts.reduce((tags, post) => {
     return tags.concat(post.tags);
   }, []);
 
   const uniqueTags = Array.from(new Set(tagList));
+  uniqueTags.sort();
 
-  res.json({ tags: uniqueTags });
+  const formattedTagList = Array.from(
+    new Set(posts.flatMap((post) => post.formattedTags))
+  );
+  formattedTagList.sort();
+
+  res.json({ reguralTags: uniqueTags, formattedTags: formattedTagList });
 });
 
 exports.tag_get = asyncHandler(async (req, res, next) => {

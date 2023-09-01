@@ -8,6 +8,7 @@ const PostSchema = new Schema({
   body: { type: String, required: true },
   published: { type: Boolean, default: false },
   tags: [{ type: String }],
+  formattedTags: [{ type: String }],
   timestamp: { type: Date, default: Date.now(), required: true },
 });
 
