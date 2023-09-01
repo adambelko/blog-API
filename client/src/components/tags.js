@@ -23,11 +23,13 @@ const Tags = ({ tagList }) => {
   const { reguralTags, formattedTags } = tagList;
   return (
     <Wrapper>
-      {reguralTags.map((tag, index) => (
-        <StyledLink key={index} to={`tags/${formattedTags[index]}`}>
-          <StyledButton>{tag}</StyledButton>
-        </StyledLink>
-      ))}
+      {reguralTags &&
+        formattedTags &&
+        reguralTags.map((tag, index) => (
+          <StyledLink key={index} to={`tags/${formattedTags[index]}`}>
+            <StyledButton>{tag}</StyledButton>
+          </StyledLink>
+        ))}
     </Wrapper>
   );
 };

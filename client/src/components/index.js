@@ -48,19 +48,9 @@ const StyledDate = styled.div`
   margin-left: 2em;
 `;
 
-const Index = () => {
+const Index = ({ formatDate }) => {
   const [postList, setPostList] = useState([]);
   const [tagList, setTagList] = useState([]);
-
-  const formatDate = (rawDate) => {
-    const date = new Date(rawDate);
-
-    const shortMonth = date.toLocaleString("default", { month: "short" });
-    const day = date.getDate();
-    const year = date.getFullYear();
-
-    return `${shortMonth} ${day} ${year}`;
-  };
 
   useEffect(() => {
     axios
@@ -77,6 +67,7 @@ const Index = () => {
   }, []);
 
   console.log(tagList);
+  console.log(postList);
   return (
     <IndexWrapper>
       <StyledSection>
@@ -96,17 +87,18 @@ const Index = () => {
         <SectionTitle>Sorted by date</SectionTitle>
         <StyledPostList>
           <Separator />
-          {postList.map((post) => (
-            <div key={post._id}>
-              <li>
-                <StyledLink to={post.formattedTitle}>{post.title}</StyledLink>
-                <StyledLink to={post.formattedTitle}>
-                  <StyledDate>{formatDate(post.timestamp)}</StyledDate>
-                </StyledLink>
-              </li>
-              <Separator />
-            </div>
-          ))}
+          {postList &&
+            postList.map((post) => (
+              <div key={post._id}>
+                <li>
+                  <StyledLink to={post.formattedTitle}>{post.title}</StyledLink>
+                  <StyledLink to={post.formattedTitle}>
+                    <StyledDate>{formatDate(post.timestamp)}</StyledDate>
+                  </StyledLink>
+                </li>
+                <Separator />
+              </div>
+            ))}
         </StyledPostList>
       </StyledSection>
     </IndexWrapper>
