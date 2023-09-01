@@ -39,5 +39,6 @@ exports.postDetail_get = asyncHandler(async (req, res, next) => {
     return res.status(404).json({ message: "Post not found" });
   }
 
-  res.json(post);
+  console.log(post);
+  res.json({ post: post });
 });
