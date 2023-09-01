@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-
 import styled from "styled-components";
+
+import Tags from "./tags";
 
 const IndexWrapper = styled.div`
   display: flex;
@@ -17,6 +18,7 @@ const StyledSection = styled.section`
 
 const SectionTitle = styled.h3`
   font-size: 1.2em;
+  font-weight: 800;
   margin-bottom: 0.7em;
 `;
 
@@ -26,7 +28,7 @@ const StyledPostList = styled.ul`
   li {
     display: flex;
     justify-content: space-between;
-    padding: 0.7em 0.7em 0.7em 0;
+    padding: 0.8em 0em 0.8em 0;
   }
 `;
 
@@ -43,10 +45,12 @@ const StyledLink = styled(Link)`
 const StyledDate = styled.div`
   color: #707170;
   font-weight: 400;
+  margin-left: 2em;
 `;
 
 const Index = () => {
   const [postList, setPostList] = useState([]);
+  const [tagList, setTagList] = useState([]);
 
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
@@ -65,6 +69,14 @@ const Index = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/tags/")
+      .then((res) => setTagList(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(tagList);
   return (
     <IndexWrapper>
       <StyledSection>
@@ -74,13 +86,19 @@ const Index = () => {
           code and personal thoughts!
         </span>
       </StyledSection>
+
+      <StyledSection>
+        <SectionTitle>Explore by topic</SectionTitle>
+        <Tags tagList={tagList} />
+      </StyledSection>
+
       <StyledSection>
         <SectionTitle>Sorted by date</SectionTitle>
         <StyledPostList>
           <Separator />
           {postList.map((post) => (
-            <div>
-              <li key={post._id}>
+            <div key={post._id}>
+              <li>
                 <StyledLink to={post.formattedTitle}>{post.title}</StyledLink>
                 <StyledLink to={post.formattedTitle}>
                   <StyledDate>{formatDate(post.timestamp)}</StyledDate>

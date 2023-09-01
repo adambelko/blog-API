@@ -28,7 +28,7 @@ const BlogNameWrapper = styled.h1`
 const NavigationWrapper = styled.nav`
   display: flex;
   align-items: center;
-  font-weight: bold;
+  font-weight: 800;
 
   ul {
     display: flex;
