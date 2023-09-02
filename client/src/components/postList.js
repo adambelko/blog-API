@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const StyledPostList = styled.ul`
   display: flex;
   flex-direction: column;
+  margin-bottom: 5em;
   li {
     display: flex;
     justify-content: space-between;
@@ -35,8 +36,10 @@ const PostList = ({ postList, formatDate }) => {
         postList.map((post) => (
           <div key={post._id}>
             <li>
-              <StyledLink to={post.formattedTitle}>{post.title}</StyledLink>
-              <StyledLink to={post.formattedTitle}>
+              <StyledLink to={`/${post.formattedTitle}`}>
+                {post.title}
+              </StyledLink>
+              <StyledLink to={`/${post.formattedTitle}`}>
                 <StyledDate>{formatDate(post.timestamp)}</StyledDate>
               </StyledLink>
             </li>

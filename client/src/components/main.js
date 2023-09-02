@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Index from "./index";
 import Story from "./story";
 import PostDetail from "./postDetail";
+import Tag from "./tag";
 
 const StyledMain = styled.main`
   display: flex;
@@ -33,6 +34,7 @@ const Main = () => {
           path="/:postTitle"
           element={<PostDetail formatDate={formatDate} />}
         />
+        <Route path="/tags/:tag" element={<Tag formatDate={formatDate} />} />
       </Routes>
     </StyledMain>
   );

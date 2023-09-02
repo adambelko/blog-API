@@ -22,13 +22,13 @@ exports.tagList_get = asyncHandler(async (req, res, next) => {
 exports.tag_get = asyncHandler(async (req, res, next) => {
   const tag = req.params.tag;
 
-  const posts = await Post.find({ tags: tag });
+  const posts = await Post.find({ formattedTags: tag });
 
   if (!posts || posts.length === 0) {
     return res.status(404).json({ message: "No posts found with this tag." });
   }
 
-  res.json(posts);
+  res.json({ postList: posts });
 });
 
 exports.postDetail_get = asyncHandler(async (req, res, next) => {

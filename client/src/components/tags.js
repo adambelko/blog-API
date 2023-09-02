@@ -26,7 +26,11 @@ const Tags = ({ tagList }) => {
       {reguralTags &&
         formattedTags &&
         reguralTags.map((tag, index) => (
-          <StyledLink key={index} to={`tags/${formattedTags[index]}`}>
+          <StyledLink
+            key={index}
+            to={`tags/${formattedTags[index]}`}
+            state={{ tag: tag }}
+          >
             <StyledButton>{tag}</StyledButton>
           </StyledLink>
         ))}
