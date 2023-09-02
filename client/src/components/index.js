@@ -1,9 +1,9 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import Tags from "./tags";
+import PostList from "./postList";
 
 const IndexWrapper = styled.div`
   display: flex;
@@ -20,32 +20,6 @@ const SectionTitle = styled.h3`
   font-size: 1.2em;
   font-weight: 800;
   margin-bottom: 0.7em;
-`;
-
-const StyledPostList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  li {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.8em 0em 0.8em 0;
-  }
-`;
-
-const Separator = styled.hr`
-  border-bottom: none;
-  height: 1px;
-`;
-
-const StyledLink = styled(Link)`
-  color: #1e2020;
-  font-weight: bold;
-`;
-
-const StyledDate = styled.div`
-  color: #707170;
-  font-weight: 400;
-  margin-left: 2em;
 `;
 
 const Index = ({ formatDate }) => {
@@ -66,8 +40,6 @@ const Index = ({ formatDate }) => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(tagList);
-  console.log(postList);
   return (
     <IndexWrapper>
       <StyledSection>
@@ -85,21 +57,7 @@ const Index = ({ formatDate }) => {
 
       <StyledSection>
         <SectionTitle>Sorted by date</SectionTitle>
-        <StyledPostList>
-          <Separator />
-          {postList &&
-            postList.map((post) => (
-              <div key={post._id}>
-                <li>
-                  <StyledLink to={post.formattedTitle}>{post.title}</StyledLink>
-                  <StyledLink to={post.formattedTitle}>
-                    <StyledDate>{formatDate(post.timestamp)}</StyledDate>
-                  </StyledLink>
-                </li>
-                <Separator />
-              </div>
-            ))}
-        </StyledPostList>
+        <PostList postList={postList} formatDate={formatDate} />
       </StyledSection>
     </IndexWrapper>
   );
