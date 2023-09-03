@@ -21,9 +21,7 @@ const Tag = ({ formatDate }) => {
   const [postList, setPostList] = useState([]);
   const { tag } = useParams();
   const location = useLocation();
-  const tg = location.state?.tag;
-  console.log(tag);
-  console.log(tg);
+  const displayTag = location.state?.tag;
 
   useEffect(() => {
     axios
@@ -34,7 +32,7 @@ const Tag = ({ formatDate }) => {
 
   return (
     <TagWrapper>
-      <SectionTitle>Posts with tag "{tg}"</SectionTitle>
+      <SectionTitle>Posts with tag "{displayTag}"</SectionTitle>
       <PostList postList={postList} formatDate={formatDate} />
     </TagWrapper>
   );

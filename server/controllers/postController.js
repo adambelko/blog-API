@@ -31,6 +31,19 @@ exports.tag_get = asyncHandler(async (req, res, next) => {
   res.json({ postList: posts });
 });
 
+exports.search_post = asyncHandler(async (req, res, next) => {
+  const query = req.query.query;
+
+  if (query.length <= 2) return;
+  // if (query === "" || query === " ") return;
+
+  const results = await Post.find({
+    title: { $regex: query, $options: "i" },
+  });
+
+  res.json({ results });
+});
+
 exports.postDetail_get = asyncHandler(async (req, res, next) => {
   const postTitle = req.params.postTitle;
   const post = await Post.findOne({ formattedTitle: postTitle });

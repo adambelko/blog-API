@@ -57,8 +57,8 @@ const Header = () => {
           <StyledLink to="/story">
             <li>STORY</li>
           </StyledLink>
-          <StyledLink to="https://github.com/adambelko">
-            <li>GITHUB</li>
+          <StyledLink to="/search">
+            <li>SEARCH</li>
           </StyledLink>
         </ul>
       </NavigationWrapper>

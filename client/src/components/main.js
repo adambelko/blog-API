@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Index from "./index";
 import Story from "./story";
+import Search from "./search";
 import PostDetail from "./postDetail";
 import Tag from "./tag";
 
@@ -30,6 +31,7 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<Index formatDate={formatDate} />} />
         <Route path="/story" element={<Story />} />
+        <Route path="/search" element={<Search formatDate={formatDate} />} />
         <Route
           path="/:postTitle"
           element={<PostDetail formatDate={formatDate} />}
