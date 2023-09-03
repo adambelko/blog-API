@@ -33,7 +33,7 @@ const Tag = ({ formatDate }) => {
   return (
     <TagWrapper>
       <SectionTitle>Posts with tag "{displayTag}"</SectionTitle>
-      <PostList postList={postList} formatDate={formatDate} />
+      {postList && <PostList postList={postList} formatDate={formatDate} />}
     </TagWrapper>
   );
 };

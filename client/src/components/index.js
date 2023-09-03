@@ -31,14 +31,14 @@ const Index = ({ formatDate }) => {
       .get("http://localhost:8000/")
       .then((res) => setPostList(res.data.postList))
       .catch((err) => console.log(err));
-  }, []);
+  }, [postList]);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/tags/")
       .then((res) => setTagList(res.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [tagList]);
 
   return (
     <IndexWrapper>
@@ -52,12 +52,12 @@ const Index = ({ formatDate }) => {
 
       <StyledSection>
         <SectionTitle>Explore by topic</SectionTitle>
-        <Tags tagList={tagList} />
+        {tagList && <Tags tagList={tagList} />}
       </StyledSection>
 
       <StyledSection>
         <SectionTitle>Sorted by date</SectionTitle>
-        <PostList postList={postList} formatDate={formatDate} />
+        {postList && <PostList postList={postList} formatDate={formatDate} />}
       </StyledSection>
     </IndexWrapper>
   );

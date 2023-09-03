@@ -34,9 +34,6 @@ exports.tag_get = asyncHandler(async (req, res, next) => {
 exports.search_post = asyncHandler(async (req, res, next) => {
   const query = req.query.query;
 
-  if (query.length <= 2) return;
-  // if (query === "" || query === " ") return;
-
   const results = await Post.find({
     title: { $regex: query, $options: "i" },
   });
