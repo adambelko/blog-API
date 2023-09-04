@@ -7,6 +7,8 @@ import Search from "./search";
 import PostDetail from "./postDetail";
 import Tag from "./tag";
 
+import Login from "./login";
+
 const StyledMain = styled.main`
   display: flex;
   flex-direction: column;
@@ -37,6 +39,8 @@ const Main = () => {
           element={<PostDetail formatDate={formatDate} />}
         />
         <Route path="/tags/:tag" element={<Tag formatDate={formatDate} />} />
+
+        <Route path="/login" element={<Login />} />
       </Routes>
     </StyledMain>
   );

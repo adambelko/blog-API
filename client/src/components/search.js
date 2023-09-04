@@ -36,7 +36,7 @@ const SubTitle = styled.h3`
 `;
 
 const StyledSubmitButton = styled.button`
-  font-size: 1em;
+  font-size: 0.9em;
   width: fit-content;
   padding: 0.2em 0.7em;
   border-radius: 7px;
