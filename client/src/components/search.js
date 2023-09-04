@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
 import axios from "axios";
 
@@ -42,21 +42,27 @@ const StyledSubmitButton = styled.button`
   border-radius: 7px;
   margin-bottom: 3em; ;
 `;
+
 const Search = ({ formatDate }) => {
   const [query, setQuery] = useState("");
   const [postList, setPostList] = useState([]);
   const [noResults, setNoResults] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (query.trim() === "") {
       setPostList([]);
+      setNoResults(true);
       return;
     }
 
     axios
       .get(`http://localhost:8000/search?query=${query}`)
-      .then((res) => setPostList(res.data.results))
+      .then((res) => {
+        setPostList(res.data.results);
+        setNoResults(res.data.results.length === 0);
+      })
       .catch((err) => console.log(err));
   };
 
