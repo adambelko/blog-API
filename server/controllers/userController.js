@@ -3,17 +3,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
-const Post = require("../models/post");
-
-exports.postList_get = asyncHandler(async (req, res, next) => {
-  const postList = await Post.find({}).sort({ timestamp: 1 }).exec();
-
-  res.json({ postList });
-});
-
-exports.about_get = (req, res, next) => {
-  res.status(200);
-};
 
 exports.createUser_post = asyncHandler(async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(`${req.body.password}`, 10);
@@ -27,10 +16,6 @@ exports.createUser_post = asyncHandler(async (req, res, next) => {
   const result = await user.save();
   res.json({ message: "User created successfully", user: result });
 });
-
-exports.login_get = (req, res, next) => {
-  res.status(200);
-};
 
 exports.login_post = async (req, res, next) => {
   const { username, password } = req.body;
@@ -50,5 +35,5 @@ exports.login_post = async (req, res, next) => {
     expiresIn: "3h",
   });
 
-  res.json({ message: "Logged in successfully", token });
+  res.redirect("http://localhost:3000/admin/dashboard");
 };

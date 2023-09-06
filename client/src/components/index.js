@@ -31,14 +31,14 @@ const Index = ({ formatDate }) => {
       .get("http://localhost:8000/")
       .then((res) => setPostList(res.data.postList))
       .catch((err) => console.log(err));
-  }, [postList]);
+  }, []);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/tags/")
       .then((res) => setTagList(res.data))
       .catch((err) => console.log(err));
-  }, [tagList]);
+  }, []);
 
   return (
     <IndexWrapper>

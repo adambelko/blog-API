@@ -2,6 +2,12 @@ const asyncHandler = require("express-async-handler");
 
 const Post = require("../models/post");
 
+exports.postList_get = asyncHandler(async (req, res, next) => {
+  const postList = await Post.find({}).sort({ timestamp: 1 }).exec();
+
+  res.json({ postList });
+});
+
 exports.tagList_get = asyncHandler(async (req, res, next) => {
   const posts = await Post.find({}, ["tags", "formattedTags"]);
   const tagList = posts.reduce((tags, post) => {

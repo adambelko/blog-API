@@ -6,8 +6,9 @@ import Story from "./story";
 import Search from "./search";
 import PostDetail from "./postDetail";
 import Tag from "./tag";
-
 import Login from "./login";
+
+import AdminDashboard from "./adminDashboard";
 
 const StyledMain = styled.main`
   display: flex;
@@ -34,13 +35,15 @@ const Main = () => {
         <Route path="/" element={<Index formatDate={formatDate} />} />
         <Route path="/story" element={<Story />} />
         <Route path="/search" element={<Search formatDate={formatDate} />} />
+        <Route path="/login" element={<Login />} />
         <Route
           path="/:postTitle"
           element={<PostDetail formatDate={formatDate} />}
         />
         <Route path="/tags/:tag" element={<Tag formatDate={formatDate} />} />
 
-        <Route path="/login" element={<Login />} />
+        {/* Admin routes */}
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </StyledMain>
   );

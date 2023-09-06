@@ -38,16 +38,16 @@ const Login = () => {
   return (
     <LoginWrapper>
       <Title>Login</Title>
-      <form action="" method="POST">
+      <form action="http://localhost:8000/login" method="POST">
         <FormSection>
-          <label for="username">Username</label>
+          <label htmlFor="username">Username</label>
           <StyledInput name="username" type="text" />
         </FormSection>
         <FormSection>
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <StyledInput name="password" type="password" />
         </FormSection>
-        <StyledButton>Log in</StyledButton>
+        <StyledButton type="submit">Log in</StyledButton>
       </form>
     </LoginWrapper>
   );
