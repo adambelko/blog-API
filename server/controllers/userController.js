@@ -35,5 +35,5 @@ exports.login_post = async (req, res, next) => {
     expiresIn: "3h",
   });
 
-  res.redirect("http://localhost:3000/admin/dashboard");
+  res.json({ user, token });
 };

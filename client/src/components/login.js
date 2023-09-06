@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -31,21 +33,54 @@ const StyledButton = styled.button`
   width: fit-content;
   padding: 0.2em 0.7em;
   border-radius: 7px;
-  margin-bottom: 3em; ;
+  margin-bottom: 3em;
 `;
 
-const Login = () => {
+const Login = ({ setAdmin }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:8000/login", {
+        username,
+        password,
+      })
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        setAdmin(true);
+        window.location.href = "http://localhost:3000/admin/dashboard";
+      })
+      .catch((err) => {
+        console.error("Login failed:", err);
+      });
+  };
+
   return (
     <LoginWrapper>
       <Title>Login</Title>
-      <form action="http://localhost:8000/login" method="POST">
+      <form onSubmit={handleSubmit}>
         <FormSection>
           <label htmlFor="username">Username</label>
-          <StyledInput name="username" type="text" />
+          <StyledInput
+            name="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
         </FormSection>
         <FormSection>
           <label htmlFor="password">Password</label>
-          <StyledInput name="password" type="password" />
+          <StyledInput
+            name="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </FormSection>
         <StyledButton type="submit">Log in</StyledButton>
       </form>

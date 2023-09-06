@@ -18,7 +18,7 @@ const StyledMain = styled.main`
   margin: auto;
 `;
 
-const Main = () => {
+const Main = ({ admin, setAdmin }) => {
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
 
@@ -35,7 +35,7 @@ const Main = () => {
         <Route path="/" element={<Index formatDate={formatDate} />} />
         <Route path="/story" element={<Story />} />
         <Route path="/search" element={<Search formatDate={formatDate} />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setAdmin={setAdmin} />} />
         <Route
           path="/:postTitle"
           element={<PostDetail formatDate={formatDate} />}
@@ -43,7 +43,10 @@ const Main = () => {
         <Route path="/tags/:tag" element={<Tag formatDate={formatDate} />} />
 
         {/* Admin routes */}
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard admin={admin} />}
+        />
       </Routes>
     </StyledMain>
   );
