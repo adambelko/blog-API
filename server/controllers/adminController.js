@@ -56,12 +56,3 @@ exports.deletePost_post = asyncHandler(async (req, res, next) => {
 exports.changePostPublicity_post = asyncHandler((req, res, next) => {
   res.send("publish / unpublish post not implemented yet");
 });
-
-exports.logout_get = (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-};

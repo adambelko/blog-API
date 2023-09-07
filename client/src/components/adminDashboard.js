@@ -1,6 +1,5 @@
 import styled from "styled-components";
-
-import useProtectedRoute from "../hooks/useProtectedRoute";
+import { NavLink } from "react-router-dom";
 
 const AdminDashboardWrapper = styled.div`
   display: flex;
@@ -8,11 +7,13 @@ const AdminDashboardWrapper = styled.div`
 `;
 
 const AdminDashboard = () => {
-  const isAuthorized = useProtectedRoute("admin/dashboard");
-
   return (
     <div>
-      {isAuthorized && <AdminDashboardWrapper>Test</AdminDashboardWrapper>}
+      {localStorage.getItem("token") && (
+        <AdminDashboardWrapper>
+          <a href="/admin/new-post">new post</a>
+        </AdminDashboardWrapper>
+      )}
     </div>
   );
 };

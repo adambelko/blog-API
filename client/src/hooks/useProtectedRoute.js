@@ -16,7 +16,7 @@ const useProtectedRoute = (route) => {
       });
   }, [route]);
 
-  return [isAuthorized, setIsAuthorized];
+  return isAuthorized;
 };
 
 export default useProtectedRoute;
