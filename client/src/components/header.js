@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import pepe from "../images/avatar.png";
 
@@ -44,6 +45,13 @@ const StyledLink = styled(NavLink)`
 `;
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const logout = (e) => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <StyledHeader>
       <BlogNameWrapper>
@@ -60,6 +68,16 @@ const Header = () => {
           <StyledLink to="/search">
             <li>SEARCH</li>
           </StyledLink>
+          {localStorage.getItem("token") && (
+            <React.Fragment>
+              <StyledLink to="/admin/dashboard">
+                <li>DASHBOARD</li>
+              </StyledLink>
+              <StyledLink onClick={logout} to="/">
+                <li>LOGOUT</li>
+              </StyledLink>
+            </React.Fragment>
+          )}
         </ul>
       </NavigationWrapper>
     </StyledHeader>
