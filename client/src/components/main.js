@@ -1,5 +1,5 @@
-import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
+import { Routes, Route } from "react-router-dom";
 
 import Index from "./index";
 import Story from "./story";
@@ -9,6 +9,7 @@ import Tag from "./tag";
 import Login from "./login";
 
 import AdminDashboard from "./adminDashboard";
+import NewPost from "./newPost";
 
 const StyledMain = styled.main`
   display: flex;
@@ -43,7 +44,11 @@ const Main = () => {
         <Route path="/tags/:tag" element={<Tag formatDate={formatDate} />} />
 
         {/* Admin routes */}
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard formatDate={formatDate} />}
+        />
+        <Route path="/admin/new-post" element={<NewPost />} />
       </Routes>
     </StyledMain>
   );

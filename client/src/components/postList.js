@@ -1,5 +1,7 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const StyledPostList = styled.ul`
   display: flex;
@@ -28,7 +30,18 @@ const StyledDate = styled.div`
   margin-left: 2em;
 `;
 
-const PostList = ({ postList, formatDate }) => {
+const PostList = ({ formatDate }) => {
+  const [postList, setPostList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/")
+      .then((res) => {
+        setPostList(res.data.postList);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <StyledPostList>
       <Separator />

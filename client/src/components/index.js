@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import Tags from "./tags";
@@ -23,23 +21,6 @@ const SectionTitle = styled.h3`
 `;
 
 const Index = ({ formatDate }) => {
-  const [postList, setPostList] = useState([]);
-  const [tagList, setTagList] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/")
-      .then((res) => setPostList(res.data.postList))
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/tags/")
-      .then((res) => setTagList(res.data))
-      .catch((err) => console.log(err));
-  }, []);
-
   return (
     <IndexWrapper>
       <StyledSection>
@@ -52,12 +33,12 @@ const Index = ({ formatDate }) => {
 
       <StyledSection>
         <SectionTitle>Explore by topic</SectionTitle>
-        {tagList && <Tags tagList={tagList} />}
+        <Tags />
       </StyledSection>
 
       <StyledSection>
         <SectionTitle>Sorted by date</SectionTitle>
-        {postList && <PostList postList={postList} formatDate={formatDate} />}
+        <PostList formatDate={formatDate} />
       </StyledSection>
     </IndexWrapper>
   );

@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -19,7 +21,16 @@ const StyledButton = styled.button`
 
 const StyledLink = styled(Link)``;
 
-const Tags = ({ tagList }) => {
+const Tags = () => {
+  const [tagList, setTagList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/tags/")
+      .then((res) => setTagList(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   const { reguralTags, formattedTags } = tagList;
   return (
     <Wrapper>
