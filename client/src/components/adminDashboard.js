@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { useEffect } from "react";
 
-import axiosInstance from "../utils/axios";
+import useProtectedRoute from "../hooks/useProtectedRoute";
 
 const AdminDashboardWrapper = styled.div`
   display: flex;
@@ -9,17 +8,13 @@ const AdminDashboardWrapper = styled.div`
 `;
 
 const AdminDashboard = () => {
-  useEffect(() => {
-    axiosInstance
-      .get("admin/dashboard")
-      .then(() => {
-        console.log("Authenticated and authorized");
-      })
-      .catch((error) => {
-        console.error("Not authenticated or authorized", error);
-      });
-  }, []);
-  return <AdminDashboardWrapper>Test</AdminDashboardWrapper>;
+  const isAuthorized = useProtectedRoute("admin/dashboard");
+
+  return (
+    <div>
+      {isAuthorized && <AdminDashboardWrapper>Test</AdminDashboardWrapper>}
+    </div>
+  );
 };
 
 export default AdminDashboard;

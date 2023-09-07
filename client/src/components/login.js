@@ -36,7 +36,7 @@ const StyledButton = styled.button`
   margin-bottom: 3em;
 `;
 
-const Login = ({ setAdmin }) => {
+const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -50,7 +50,6 @@ const Login = ({ setAdmin }) => {
       })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        setAdmin(true);
         window.location.href = "http://localhost:3000/admin/dashboard";
       })
       .catch((err) => {

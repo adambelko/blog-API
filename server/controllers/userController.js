@@ -35,5 +35,5 @@ exports.login_post = async (req, res, next) => {
     expiresIn: "3h",
   });
 
-  res.json({ user, token });
+  res.json({ token });
 };
