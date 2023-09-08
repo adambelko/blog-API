@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Post = require("../models/post");
 
 exports.postList_get = asyncHandler(async (req, res, next) => {
-  const postList = await Post.find({}).sort({ timestamp: 1 }).exec();
+  const postList = await Post.find({}).sort({ timestamp: -1 }).exec();
 
   res.json({ postList });
 });
@@ -55,6 +55,5 @@ exports.postDetail_get = asyncHandler(async (req, res, next) => {
     return res.status(404).json({ message: "Post not found" });
   }
 
-  console.log(post);
   res.json({ post: post });
 });

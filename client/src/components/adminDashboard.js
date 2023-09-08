@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import PostList from "./postList";
-import useProtectedRoute from "../hooks/useProtectedRoute";
+// import useProtectedRoute from "../hooks/useProtectedRoute";
 
 const AdminDashboardWrapper = styled.div`
   display: flex;
