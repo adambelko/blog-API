@@ -5,10 +5,11 @@ import {
   StyledInput,
   StyledButton,
 } from "../styles/CommonStyledComponents";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
+
+import MyEditor from "../components/Editor";
 
 const FormSection = styled(Wrapper)`
   margin-bottom: 1em;
@@ -17,29 +18,12 @@ const FormSection = styled(Wrapper)`
   }
 `;
 
-const StyledEditor = styled(Editor)`
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: 100%;
-  min-height: 300px;
-`;
-
 const NewPost = () => {
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("sad");
+  const [body, setBody] = useState("");
   const [tags, setTags] = useState("");
 
   const navigate = useNavigate();
-
-  const REACT_APP_TINY_API_KEY = process.env.REACT_APP_TINY_API_KEY;
-
-  const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-      setBody(editorRef.current.getContent());
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,43 +84,7 @@ const NewPost = () => {
             </FormSection>
             <FormSection>
               <label htmlFor="body">Content:</label>
-              <StyledEditor
-                apiKey={REACT_APP_TINY_API_KEY}
-                onInit={(evt, editor) => (editorRef.current = editor)}
-                initialValue="<p>This is the initial content of the editor.</p>"
-                init={{
-                  height: 500,
-                  menubar: false,
-                  plugins: [
-                    "advlist",
-                    "autolink",
-                    "lists",
-                    "link",
-                    "image",
-                    "charmap",
-                    "preview",
-                    "anchor",
-                    "searchreplace",
-                    "visualblocks",
-                    "code",
-                    "fullscreen",
-                    "insertdatetime",
-                    "media",
-                    "table",
-                    "code",
-                    "help",
-                    "wordcount",
-                  ],
-                  toolbar:
-                    "undo redo | blocks | " +
-                    "bold italic forecolor | alignleft aligncenter " +
-                    "alignright alignjustify | bullist numlist outdent indent | " +
-                    "removeformat | help",
-                  content_style:
-                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                }}
-              />
-              <button onClick={log}>Log editor content</button>
+              <MyEditor setBody={setBody} />
             </FormSection>
             <StyledButton type="submit">Create Post</StyledButton>
           </form>
