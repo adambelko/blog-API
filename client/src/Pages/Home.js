@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import Tags from "./tags";
-import PostList from "./postList";
+import Tags from "../components/Tags";
+import PostList from "../components/PostList";
 
 const IndexWrapper = styled.div`
   display: flex;

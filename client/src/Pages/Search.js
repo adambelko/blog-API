@@ -3,7 +3,7 @@ import { useState } from "react";
 import React from "react";
 import axios from "axios";
 
-import PostList from "./postList";
+import PostList from "../components/PostList";
 
 const SearchWrapper = styled.div`
   display: flex;

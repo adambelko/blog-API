@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 
-import Index from "./index";
-import Story from "./story";
-import Search from "./search";
-import PostDetail from "./postDetail";
-import Tag from "./tag";
-import Login from "./login";
-
-import AdminDashboard from "./adminDashboard";
-import NewPost from "./newPost";
+import Tag from "./Tag";
+import Home from "../Pages/Home";
+import Story from "../Pages/Story";
+import Login from "../Pages/Login";
+import Search from "../Pages/Search";
+import NewPost from "../Pages/NewPost";
+import PostDetail from "../Pages/PostDetail";
+import AdminDashboard from "../Pages/AdminDashboard";
 
 const StyledMain = styled.main`
   display: flex;
@@ -33,7 +32,7 @@ const Main = () => {
   return (
     <StyledMain>
       <Routes>
-        <Route path="/" element={<Index formatDate={formatDate} />} />
+        <Route path="/" element={<Home formatDate={formatDate} />} />
         <Route path="/story" element={<Story />} />
         <Route path="/search" element={<Search formatDate={formatDate} />} />
         <Route path="/login" element={<Login />} />

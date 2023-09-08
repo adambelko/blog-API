@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 
-import PostList from "./postList";
+import PostList from "./PostList";
 
 const TagWrapper = styled.div`
   display: flex;
