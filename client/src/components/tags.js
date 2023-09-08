@@ -16,10 +16,7 @@ const StyledButton = styled.button`
   padding: 0.5em;
   border: none;
   border-radius: 3px;
-  cursor: pointer;
 `;
-
-const StyledLink = styled(Link)``;
 
 const Tags = () => {
   const [tagList, setTagList] = useState([]);
@@ -37,13 +34,13 @@ const Tags = () => {
       {reguralTags &&
         formattedTags &&
         reguralTags.map((tag, index) => (
-          <StyledLink
+          <Link
             key={index}
             to={`tags/${formattedTags[index]}`}
             state={{ tag: tag }}
           >
             <StyledButton>{tag}</StyledButton>
-          </StyledLink>
+          </Link>
         ))}
     </Wrapper>
   );

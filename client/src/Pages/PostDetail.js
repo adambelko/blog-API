@@ -1,18 +1,12 @@
 import styled from "styled-components";
+import { Wrapper, Title } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const PostDetailWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const PostTitle = styled.h2`
+const PostTitle = styled(Title)`
   font-size: 2.6em;
-  color: #000000;
-  font-weight: bold;
-  margin-top: 0.4em;
+  margin: 0.4em 0 0 0;
 `;
 
 const PublishedDate = styled.div`
@@ -39,11 +33,11 @@ const PostDetail = ({ formatDate }) => {
   }, [postTitle]);
 
   return (
-    <PostDetailWrapper>
+    <Wrapper>
       <PostTitle>{post.title}</PostTitle>
       <PublishedDate>Published {formatDate(post.timestamp)}</PublishedDate>
       <PostBody>{post.body}</PostBody>
-    </PostDetailWrapper>
+    </Wrapper>
   );
 };
 

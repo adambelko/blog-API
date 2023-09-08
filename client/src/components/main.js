@@ -2,18 +2,17 @@ import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 
 import Tag from "./Tag";
-import Home from "../Pages/Home";
-import Story from "../Pages/Story";
-import Login from "../Pages/Login";
-import Search from "../Pages/Search";
-import NewPost from "../Pages/NewPost";
-import PostDetail from "../Pages/PostDetail";
-import AdminDashboard from "../Pages/AdminDashboard";
+import Home from "../pages/Home";
+import Story from "../pages/Story";
+import Login from "../pages/Login";
+import Search from "../pages/Search";
+import NewPost from "../pages/NewPost";
+import PostDetail from "../pages/PostDetail";
+import AdminDashboard from "../pages/AdminDashboard";
 
 const StyledMain = styled.main`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   max-width: 685px;
   margin: auto;
 `;

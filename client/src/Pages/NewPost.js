@@ -1,44 +1,20 @@
 import styled from "styled-components";
+import {
+  Wrapper,
+  Title,
+  StyledInput,
+  StyledButton,
+} from "../styles/CommonStyledComponents";
 import { useState, useRef } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
+import axios from "axios";
 
-const NewPostWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Title = styled.h2`
-  font-size: 2em;
-  color: #000000;
-  font-weight: bold;
-  margin: 0.4em 0 1.2em 0;
-`;
-
-const FormSection = styled.div`
-  display: flex;
-  flex-direction: column;
+const FormSection = styled(Wrapper)`
   margin-bottom: 1em;
   label {
     margin-bottom: 0.5em;
   }
-`;
-
-const StyledInput = styled.input`
-  width: 22em;
-  font-size: 0.8em;
-  padding: 0.2em;
-  border-radius: 7px;
-  margin-bottom: 0.5em;
-`;
-
-const StyledSubmitButton = styled.button`
-  font-size: 0.9em;
-  width: fit-content;
-  padding: 0.2em 0.7em;
-  border-radius: 7px;
-  margin-bottom: 3em; ;
 `;
 
 const StyledEditor = styled(Editor)`
@@ -97,7 +73,7 @@ const NewPost = () => {
   return (
     <>
       {localStorage.getItem("token") && (
-        <NewPostWrapper>
+        <Wrapper>
           <Title>New Post</Title>
           <form onSubmit={handleSubmit}>
             <FormSection>
@@ -162,9 +138,9 @@ const NewPost = () => {
               />
               <button onClick={log}>Log editor content</button>
             </FormSection>
-            <StyledSubmitButton type="submit">Create Post</StyledSubmitButton>
+            <StyledButton type="submit">Create Post</StyledButton>
           </form>
-        </NewPostWrapper>
+        </Wrapper>
       )}
     </>
   );

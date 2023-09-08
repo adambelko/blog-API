@@ -1,11 +1,17 @@
 import styled from "styled-components";
+import {
+  Title,
+  StyledInput,
+  SectionTitle,
+  StyledButton,
+} from "../styles/CommonStyledComponents";
 import { useState } from "react";
 import React from "react";
 import axios from "axios";
 
 import PostList from "../components/PostList";
 
-const SearchWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 3em;
@@ -15,32 +21,8 @@ const SearchWrapper = styled.div`
   }
 `;
 
-const Title = styled.h2`
-  font-size: 2em;
-  color: #000000;
-  font-weight: bold;
-  margin: 0.4em 0 1.2em 0;
-`;
-
-const StyledInput = styled.input`
+const StyledSearchInput = styled(StyledInput)`
   font-size: 1em;
-  padding: 0.2em;
-  border-radius: 7px;
-  margin-bottom: 0.5em;
-`;
-
-const SubTitle = styled.h3`
-  font-size: 1.2em;
-  font-weight: 800;
-  margin-bottom: 0.7em;
-`;
-
-const StyledSubmitButton = styled.button`
-  font-size: 0.9em;
-  width: fit-content;
-  padding: 0.2em 0.7em;
-  border-radius: 7px;
-  margin-bottom: 3em; ;
 `;
 
 const Search = ({ formatDate }) => {
@@ -67,27 +49,27 @@ const Search = ({ formatDate }) => {
   };
 
   return (
-    <SearchWrapper>
+    <Wrapper>
       <Title>Search</Title>
       <form onSubmit={handleSubmit}>
-        <StyledInput
+        <StyledSearchInput
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
+        <StyledButton type="submit">Submit</StyledButton>
       </form>
       <React.Fragment>
         {postList.length > 0 ? (
           <React.Fragment>
-            <SubTitle>Search results</SubTitle>
+            <SectionTitle>Search results</SectionTitle>
             <PostList postList={postList} formatDate={formatDate} />
           </React.Fragment>
         ) : (
-          noResults && <SubTitle>No results found</SubTitle>
+          noResults && <SectionTitle>No results found</SectionTitle>
         )}
       </React.Fragment>
-    </SearchWrapper>
+    </Wrapper>
   );
 };
 

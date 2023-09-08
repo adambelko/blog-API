@@ -1,22 +1,8 @@
 import styled from "styled-components";
+import { Wrapper, Title, SectionTitle } from "../styles/CommonStyledComponents";
 
-const StoryWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+const StoryWrapper = styled(Wrapper)`
   margin-bottom: 3em;
-`;
-
-const Title = styled.h2`
-  font-size: 2em;
-  color: #000000;
-  font-weight: bold;
-  margin: 0.4em 0 1.2em 0;
-`;
-
-const SectionTitle = styled.h3`
-  font-size: 1.2em;
-  font-weight: 800;
-  margin-bottom: 0.7em;
 `;
 
 const TextParagraph = styled.p`

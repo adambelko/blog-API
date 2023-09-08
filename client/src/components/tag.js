@@ -1,21 +1,9 @@
-import styled from "styled-components";
+import { Wrapper, Title } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 
 import PostList from "./PostList";
-
-const TagWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 2em;
-  color: #000000;
-  font-weight: bold;
-  margin: 0.4em 0 1.5em 0;
-`;
 
 const Tag = ({ formatDate }) => {
   const [postList, setPostList] = useState([]);
@@ -31,10 +19,10 @@ const Tag = ({ formatDate }) => {
   }, [tag]);
 
   return (
-    <TagWrapper>
-      <SectionTitle>Posts with tag "{displayTag}"</SectionTitle>
+    <Wrapper>
+      <Title>Posts with tag "{displayTag}"</Title>
       {postList && <PostList postList={postList} formatDate={formatDate} />}
-    </TagWrapper>
+    </Wrapper>
   );
 };
 

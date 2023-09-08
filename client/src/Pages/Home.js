@@ -1,12 +1,8 @@
 import styled from "styled-components";
+import { Wrapper, SectionTitle } from "../styles/CommonStyledComponents";
 
 import Tags from "../components/Tags";
 import PostList from "../components/PostList";
-
-const IndexWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 const StyledSection = styled.section`
   display: flex;
@@ -14,15 +10,9 @@ const StyledSection = styled.section`
   margin-top: 3.2em;
 `;
 
-const SectionTitle = styled.h3`
-  font-size: 1.2em;
-  font-weight: 800;
-  margin-bottom: 0.7em;
-`;
-
 const Index = ({ formatDate }) => {
   return (
-    <IndexWrapper>
+    <Wrapper>
       <StyledSection>
         <SectionTitle>Hey</SectionTitle>
         <span>
@@ -40,7 +30,7 @@ const Index = ({ formatDate }) => {
         <SectionTitle>Sorted by date</SectionTitle>
         <PostList formatDate={formatDate} />
       </StyledSection>
-    </IndexWrapper>
+    </Wrapper>
   );
 };
 
