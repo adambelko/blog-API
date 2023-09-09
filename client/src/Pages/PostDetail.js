@@ -3,6 +3,7 @@ import { Wrapper, Title } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import DOMPurify from "dompurify";
 
 const PostTitle = styled(Title)`
   font-size: 2.6em;
@@ -17,7 +18,6 @@ const PublishedDate = styled.div`
 `;
 
 const PostBody = styled.div`
-  display: flex;
   margin-top: 3em;
 `;
 
@@ -32,11 +32,13 @@ const PostDetail = ({ formatDate }) => {
       .catch((err) => console.log(err));
   }, [postTitle]);
 
+  const sanitizedContent = DOMPurify.sanitize(post.body);
+
   return (
     <Wrapper>
       <PostTitle>{post.title}</PostTitle>
       <PublishedDate>Published {formatDate(post.timestamp)}</PublishedDate>
-      <PostBody>{post.body}</PostBody>
+      <PostBody dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
     </Wrapper>
   );
 };

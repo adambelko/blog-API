@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import DOMPurify from "dompurify";
 
 const MyEditor = ({ setBody }) => {
   const editorRef = useRef(null);
@@ -7,7 +8,8 @@ const MyEditor = ({ setBody }) => {
 
   const log = () => {
     if (editorRef.current) {
-      setBody(editorRef.current.getContent());
+      const sanitizedBody = DOMPurify.sanitize(editorRef.current.getContent());
+      setBody(sanitizedBody);
     }
   };
 
@@ -46,10 +48,12 @@ const MyEditor = ({ setBody }) => {
             "alignright alignjustify | bullist numlist outdent indent | " +
             "removeformat | help",
           content_style:
-            "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            "body { font-family: Albert Sans, Roboto, sans-serif; font-size:20px }",
         }}
       />
-      <button onClick={log}>Log editor content</button>
+      <button type="button" onClick={log}>
+        Log editor content
+      </button>
     </>
   );
 };

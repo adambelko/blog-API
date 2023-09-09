@@ -5,10 +5,12 @@
 
 html {
 	font-family: "Albert Sans", "Roboto", sans-serif;
- 	font-size: 20px;
+	font-size: 20px;
+	color: #1E2020;
+	line-height: 1.5em;
+	font-weight: 500;
 	box-sizing: border-box;
 	background-color: #F7F5F3;
-	color: #1E2020;
 }
 
 a {
