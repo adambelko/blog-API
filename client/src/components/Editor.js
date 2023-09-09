@@ -20,8 +20,8 @@ const MyEditor = ({ setBody }) => {
         onInit={(evt, editor) => (editorRef.current = editor)}
         initialValue="<p>This is the initial content of the editor.</p>"
         init={{
-          height: 500,
-          menubar: false,
+          height: 700,
+          menubar: true,
           plugins: [
             "advlist",
             "autolink",
@@ -33,6 +33,7 @@ const MyEditor = ({ setBody }) => {
             "anchor",
             "searchreplace",
             "visualblocks",
+            "codesample",
             "code",
             "fullscreen",
             "insertdatetime",
@@ -46,7 +47,14 @@ const MyEditor = ({ setBody }) => {
             "undo redo | blocks | " +
             "bold italic forecolor | alignleft aligncenter " +
             "alignright alignjustify | bullist numlist outdent indent | " +
-            "removeformat | help",
+            "removeformat | help | code | codesample | fullscreen",
+
+          codesample_languages: [
+            { text: "HTML/XML", value: "markup" },
+            { text: "JavaScript", value: "javascript" },
+            { text: "CSS", value: "css" },
+          ],
+
           content_style:
             "body { font-family: Albert Sans, Roboto, sans-serif; font-size:20px }",
         }}

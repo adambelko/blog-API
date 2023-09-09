@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import DOMPurify from "dompurify";
+import Prism from "prismjs";
+import "../styles/prism.css";
 
 const PostTitle = styled(Title)`
   font-size: 2.6em;
@@ -19,11 +21,15 @@ const PublishedDate = styled.div`
 
 const PostBody = styled.div`
   margin-top: 3em;
+  pre {
+    font-size: 16px;
+  }
 `;
 
 const PostDetail = ({ formatDate }) => {
   const [post, setPost] = useState({});
   const { postTitle } = useParams();
+  Prism.highlightAll();
 
   useEffect(() => {
     axios

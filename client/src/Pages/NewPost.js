@@ -28,6 +28,8 @@ const NewPost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (body === "") return;
+
     const postData = {
       title: title,
       body: body,
