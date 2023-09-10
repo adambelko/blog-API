@@ -43,7 +43,7 @@ const PostDetail = ({ formatDate }) => {
   return (
     <Wrapper>
       <PostTitle>{post.title}</PostTitle>
-      <PublishedDate>Published {formatDate(post.timestamp)}</PublishedDate>
+      <PublishedDate>Posted on {formatDate(post.timestamp)}</PublishedDate>
       <PostBody dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
     </Wrapper>
   );
