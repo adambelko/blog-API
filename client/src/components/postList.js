@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -51,6 +51,9 @@ const Dropdown = styled.ul`
   z-index: 1;
   border-radius: 7px;
   background-color: white;
+  a {
+    text-decoration: none;
+  }
 `;
 
 const DropdownItem = styled.li`
@@ -61,7 +64,7 @@ const DropdownItem = styled.li`
   }
 `;
 
-const PostList = ({ formatDate }) => {
+const PostList = ({ formatDate, managePosts }) => {
   const [postList, setPostList] = useState([]);
   const [openStates, setOpenStates] = useState([]);
 
@@ -70,18 +73,34 @@ const PostList = ({ formatDate }) => {
       .get("http://localhost:8000/")
       .then((res) => {
         setPostList(res.data.postList);
-        // Initialize the open states array with false for each post
         setOpenStates(new Array(res.data.postList.length).fill(false));
       })
       .catch((err) => console.log(err));
   }, []);
 
-  // Function to toggle the dropdown for a specific post
   const toggleDropdown = (index) => {
     const newOpenStates = [...openStates];
+
+    // Close all open dropdowns
+    newOpenStates.forEach((dropdown, index) => (newOpenStates[index] = false));
+
+    // Toggle the clicked dropdown
     newOpenStates[index] = !newOpenStates[index];
+
     setOpenStates(newOpenStates);
   };
+
+  const closeAllDropdowns = () => {
+    setOpenStates(new Array(postList.length).fill(false));
+  };
+
+  useEffect(() => {
+    document.body.addEventListener("click", closeAllDropdowns);
+    return () => {
+      document.body.removeEventListener("click", closeAllDropdowns);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   console.log(openStates);
 
@@ -95,15 +114,22 @@ const PostList = ({ formatDate }) => {
               <div>
                 {openStates[index] && (
                   <Dropdown>
-                    <DropdownItem>Edit</DropdownItem>
+                    <StyledLink to={`/admin/${post._id}/edit-post`}>
+                      <DropdownItem>Edit</DropdownItem>
+                    </StyledLink>
                     <DropdownItem>Publish</DropdownItem>
                     <DropdownItem>Remove</DropdownItem>
                   </Dropdown>
                 )}
-                <DropdownButton
-                  size="30px"
-                  onClick={() => toggleDropdown(index)}
-                />
+                {localStorage.getItem("token") && managePosts && (
+                  <DropdownButton
+                    size="30px"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleDropdown(index);
+                    }}
+                  />
+                )}
                 <StyledLink to={`/${post.formattedTitle}`}>
                   {post.title}
                 </StyledLink>

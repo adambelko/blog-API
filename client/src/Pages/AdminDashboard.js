@@ -17,6 +17,8 @@ const StyledLink = styled(Link)`
 `;
 
 const AdminDashboard = ({ formatDate }) => {
+  const managePosts = true;
+
   return (
     <div>
       {localStorage.getItem("token") && (
@@ -27,7 +29,7 @@ const AdminDashboard = ({ formatDate }) => {
             <StyledLink to="/admin/new-post">New Post</StyledLink>
           </StyledButton>
           <SectionTitle>Manage Posts</SectionTitle>
-          <PostList formatDate={formatDate} />
+          <PostList formatDate={formatDate} managePosts={managePosts} />
         </Wrapper>
       )}
     </div>
