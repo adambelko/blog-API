@@ -6,7 +6,7 @@ import Home from "../pages/Home";
 import Story from "../pages/Story";
 import Login from "../pages/Login";
 import Search from "../pages/Search";
-import NewPost from "../pages/NewPost";
+import PostForm from "../pages/PostForm";
 import PostDetail from "../pages/PostDetail";
 import AdminDashboard from "../pages/AdminDashboard";
 
@@ -46,7 +46,8 @@ const Main = () => {
           path="/admin/dashboard"
           element={<AdminDashboard formatDate={formatDate} />}
         />
-        <Route path="/admin/new-post" element={<NewPost />} />
+        <Route path="/admin/new-post" element={<PostForm />} />
+        <Route path="/admin/:postId/edit-post" element={<PostForm />} />
       </Routes>
     </StyledMain>
   );

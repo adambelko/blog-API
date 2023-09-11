@@ -26,23 +26,37 @@ exports.newPost_post = asyncHandler(async (req, res, next) => {
   res.send("New post created");
 });
 
-exports.editPost_get = (req, res, next) => {
-  res.send("Edit post page");
-};
+exports.editPost_get = asyncHandler(async (req, res, next) => {
+  const postId = req.params.postId;
+
+  const currentPost = await Post.findById(postId);
+
+  res.status(200).json({ currentPost });
+});
 
 exports.editPost_post = asyncHandler(async (req, res, next) => {
   const postId = req.params.postId;
 
-  const editPostData = {
-    title: req.body.title,
-    formattedTitle: req.body.title.replace(/\s+/g, "-").toLowerCase(),
-    body: req.body.body,
-    published: req.body.published,
-  };
+  // Check if the post exists
+  const currentPost = await Post.findById(postId);
 
-  await Post.updateOne({ _id: postId }, editPostData);
+  if (!currentPost) {
+    return res.status(404).json({ message: "Post not found" });
+  }
 
-  res.json({ message: "Post editted successfully" });
+  currentPost.title = req.body.title;
+  currentPost.formattedTitle = req.body.title
+    .replace(/\s+/g, "-")
+    .toLowerCase();
+  currentPost.body = req.body.body;
+  currentPost.tags = req.body.tags;
+  currentPost.formattedTags = req.body.tags.map((tag) =>
+    tag.replace(/\s+/g, "-").toLowerCase()
+  );
+
+  await currentPost.save();
+
+  return res.status(200).json({ message: "Post changes saved" });
 });
 
 exports.deletePost_post = asyncHandler(async (req, res, next) => {
@@ -66,5 +80,5 @@ exports.changePostPublicity_post = asyncHandler(async (req, res, next) => {
 
   await currentPost.save();
 
-  res.status(200);
+  res.json({ message: "Post publicity updated" });
 });

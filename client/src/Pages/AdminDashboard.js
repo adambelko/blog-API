@@ -23,7 +23,7 @@ const AdminDashboard = ({ formatDate }) => {
 
   const fetchPostList = () => {
     axiosInstance
-      .get("http://localhost:8000/")
+      .get("/")
       .then((res) => {
         setPostList(res.data.postList);
         setOpenStates(new Array(res.data.postList.length).fill(false));
