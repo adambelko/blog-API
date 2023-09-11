@@ -6,9 +6,10 @@ import {
   StyledButton,
 } from "../styles/CommonStyledComponents";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import PostList from "../components/PostList";
-// import useProtectedRoute from "../hooks/useProtectedRoute";
+import axiosInstance from "../utils/Axios";
 
 const StyledLink = styled(Link)`
   &:hover {
@@ -17,7 +18,24 @@ const StyledLink = styled(Link)`
 `;
 
 const AdminDashboard = ({ formatDate }) => {
-  const managePosts = true;
+  const [postList, setPostList] = useState([]);
+  const [openStates, setOpenStates] = useState([]);
+
+  const dashboard = true;
+
+  const fetchPostList = () => {
+    axiosInstance
+      .get("http://localhost:8000/")
+      .then((res) => {
+        setPostList(res.data.postList);
+        setOpenStates(new Array(res.data.postList.length).fill(false));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    fetchPostList();
+  }, []);
 
   return (
     <div>
@@ -29,7 +47,14 @@ const AdminDashboard = ({ formatDate }) => {
             <StyledLink to="/admin/new-post">New Post</StyledLink>
           </StyledButton>
           <SectionTitle>Manage Posts</SectionTitle>
-          <PostList formatDate={formatDate} managePosts={managePosts} />
+          <PostList
+            postList={postList}
+            formatDate={formatDate}
+            dashboard={dashboard}
+            fetchPostList={fetchPostList}
+            openStates={openStates}
+            setOpenStates={setOpenStates}
+          />
         </Wrapper>
       )}
     </div>

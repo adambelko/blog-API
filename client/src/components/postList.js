@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-import { RiArrowDropDownLine } from "react-icons/ri";
+import Dropdown from "./Dropdown";
 
 const StyledPostList = styled.ul`
   display: flex;
@@ -29,7 +27,7 @@ const Separator = styled.hr`
 
 const StyledLink = styled(Link)`
   color: #1e2020;
-  font-weight: bold;
+  font-weight: ${(props) => (props.boldfont ? "bold" : "regular")};
 `;
 
 const StyledDate = styled.div`
@@ -38,104 +36,32 @@ const StyledDate = styled.div`
   margin-left: 2em;
 `;
 
-const DropdownButton = styled(RiArrowDropDownLine)`
-  cursor: pointer;
-`;
-
-const Dropdown = styled.ul`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  list-style: none;
-  top: 1.6em;
-  z-index: 1;
-  border-radius: 7px;
-  background-color: white;
-  a {
-    text-decoration: none;
-  }
-`;
-
-const DropdownItem = styled.li`
-  padding: 0.35em 0.6em;
-  cursor: pointer;
-  &:hover {
-    background-color: #efefef;
-  }
-`;
-
-const PostList = ({ formatDate, managePosts }) => {
-  const [postList, setPostList] = useState([]);
-  const [openStates, setOpenStates] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/")
-      .then((res) => {
-        setPostList(res.data.postList);
-        setOpenStates(new Array(res.data.postList.length).fill(false));
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  const toggleDropdown = (index) => {
-    const newOpenStates = [...openStates];
-
-    // Close all open dropdowns
-    newOpenStates.forEach((dropdown, index) => (newOpenStates[index] = false));
-
-    // Toggle the clicked dropdown
-    newOpenStates[index] = !newOpenStates[index];
-
-    setOpenStates(newOpenStates);
-  };
-
-  const closeAllDropdowns = () => {
-    setOpenStates(new Array(postList.length).fill(false));
-  };
-
-  useEffect(() => {
-    document.body.addEventListener("click", closeAllDropdowns);
-    return () => {
-      document.body.removeEventListener("click", closeAllDropdowns);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  console.log(openStates);
-
+const PostList = (props) => {
   return (
     <StyledPostList>
       <Separator />
-      {postList &&
-        postList.map((post, index) => (
+      {props.postList &&
+        props.postList.map((post, index) => (
           <div key={post._id}>
             <StyledList>
               <div>
-                {openStates[index] && (
-                  <Dropdown>
-                    <StyledLink to={`/admin/${post._id}/edit-post`}>
-                      <DropdownItem>Edit</DropdownItem>
-                    </StyledLink>
-                    <DropdownItem>Publish</DropdownItem>
-                    <DropdownItem>Remove</DropdownItem>
-                  </Dropdown>
-                )}
-                {localStorage.getItem("token") && managePosts && (
-                  <DropdownButton
-                    size="30px"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleDropdown(index);
-                    }}
+                {localStorage.getItem("token") && props.dashboard && (
+                  <Dropdown
+                    StyledLink={StyledLink}
+                    postList={props.postList}
+                    post={post}
+                    index={index}
+                    fetchPostList={props.fetchPostList}
+                    openStates={props.openStates}
+                    setOpenStates={props.setOpenStates}
                   />
                 )}
-                <StyledLink to={`/${post.formattedTitle}`}>
+                <StyledLink to={`/${post.formattedTitle}`} boldfont="true">
                   {post.title}
                 </StyledLink>
               </div>
               <StyledLink to={`/${post.formattedTitle}`}>
-                <StyledDate>{formatDate(post.timestamp)}</StyledDate>
+                <StyledDate>{props.formatDate(post.timestamp)}</StyledDate>
               </StyledLink>
             </StyledList>
             <Separator />

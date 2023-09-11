@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Wrapper, SectionTitle } from "../styles/CommonStyledComponents";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 import Tags from "../components/Tags";
 import PostList from "../components/PostList";
@@ -11,6 +13,17 @@ const StyledSection = styled.section`
 `;
 
 const Index = ({ formatDate }) => {
+  const [postList, setPostList] = useState();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/")
+      .then((res) => {
+        setPostList(res.data.postList);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <Wrapper>
       <StyledSection>
@@ -28,7 +41,7 @@ const Index = ({ formatDate }) => {
 
       <StyledSection>
         <SectionTitle>Sorted by date</SectionTitle>
-        <PostList formatDate={formatDate} />
+        <PostList postList={postList} formatDate={formatDate} />
       </StyledSection>
     </Wrapper>
   );
