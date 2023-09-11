@@ -41,7 +41,11 @@ const Index = ({ formatDate }) => {
 
       <StyledSection>
         <SectionTitle>Sorted by date</SectionTitle>
-        <PostList postList={postList} formatDate={formatDate} />
+        <PostList
+          onlyPublished={true}
+          postList={postList}
+          formatDate={formatDate}
+        />
       </StyledSection>
     </Wrapper>
   );

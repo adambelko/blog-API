@@ -4,16 +4,11 @@ import axiosInstance from "../utils/Axios";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 const StyledDropdown = styled.ul`
-  div {
-    display: flex;
-    flex-direction: column;
-  }
   position: absolute;
-  list-style: none;
   top: 1.6em;
   z-index: 1;
   border-radius: 7px;
-  background-color: white;
+  background-color: #ffffff;
   a {
     text-decoration: none;
   }
@@ -34,7 +29,8 @@ const DropdownButton = styled(RiArrowDropDownLine)`
 const Dropdown = (props) => {
   const handlePublishPost = async (postId) => {
     try {
-      await axiosInstance.post(`/admin/${postId}/change-post-publicity`, {});
+      await axiosInstance.post(`/admin/${postId}/change-post-publicity`);
+      props.fetchPostList();
     } catch (error) {
       console.error("Error publishing post:", error);
     }
@@ -84,17 +80,15 @@ const Dropdown = (props) => {
       />
       {props.openStates[props.index] && (
         <StyledDropdown>
-          <div>
-            <props.StyledLink to={`/admin/${props.post._id}/edit-post`}>
-              <DropdownItem>Edit</DropdownItem>
-            </props.StyledLink>
-            <DropdownItem onClick={() => handlePublishPost(props.post._id)}>
-              Publish
-            </DropdownItem>
-            <DropdownItem onClick={() => handleRemovePost(props.post._id)}>
-              Remove
-            </DropdownItem>
-          </div>
+          <props.StyledLink to={`/admin/${props.post._id}/edit-post`}>
+            <DropdownItem>Edit</DropdownItem>
+          </props.StyledLink>
+          <DropdownItem onClick={() => handlePublishPost(props.post._id)}>
+            {props.post.published ? "Unpublish" : "Publish"}
+          </DropdownItem>
+          <DropdownItem onClick={() => handleRemovePost(props.post._id)}>
+            Remove
+          </DropdownItem>
         </StyledDropdown>
       )}
     </React.Fragment>

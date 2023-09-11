@@ -42,7 +42,9 @@ exports.search_post = asyncHandler(async (req, res, next) => {
 
   const results = await Post.find({
     title: { $regex: query, $options: "i" },
-  });
+  })
+    .sort({ timestamp: -1 })
+    .exec();
 
   res.json({ results });
 });

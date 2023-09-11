@@ -37,15 +37,32 @@ const StyledDate = styled.div`
 `;
 
 const PostList = (props) => {
+  const filteredPostList =
+    props.postList && props.postList.filter((post) => post.published === true);
+
   return (
     <StyledPostList>
       <Separator />
-      {props.postList &&
-        props.postList.map((post, index) => (
-          <div key={post._id}>
-            <StyledList>
-              <div>
-                {localStorage.getItem("token") && props.dashboard && (
+      {props.onlyPublished
+        ? filteredPostList &&
+          filteredPostList.map((post) => (
+            <div key={post._id}>
+              <StyledList>
+                <StyledLink to={`/${post.formattedTitle}`} boldfont="true">
+                  {post.title}
+                </StyledLink>
+                <StyledLink to={`/${post.formattedTitle}`}>
+                  <StyledDate>{props.formatDate(post.timestamp)}</StyledDate>
+                </StyledLink>
+              </StyledList>
+              <Separator />
+            </div>
+          ))
+        : props.postList &&
+          props.postList.map((post, index) => (
+            <div key={post._id}>
+              <StyledList>
+                <div>
                   <Dropdown
                     StyledLink={StyledLink}
                     postList={props.postList}
@@ -55,18 +72,19 @@ const PostList = (props) => {
                     openStates={props.openStates}
                     setOpenStates={props.setOpenStates}
                   />
-                )}
-                <StyledLink to={`/${post.formattedTitle}`} boldfont="true">
-                  {post.title}
+                  <StyledLink to={`/${post.formattedTitle}`} boldfont="true">
+                    {post.published
+                      ? post.title
+                      : `${post.title} (Not published)`}
+                  </StyledLink>
+                </div>
+                <StyledLink to={`/${post.formattedTitle}`}>
+                  <StyledDate>{props.formatDate(post.timestamp)}</StyledDate>
                 </StyledLink>
-              </div>
-              <StyledLink to={`/${post.formattedTitle}`}>
-                <StyledDate>{props.formatDate(post.timestamp)}</StyledDate>
-              </StyledLink>
-            </StyledList>
-            <Separator />
-          </div>
-        ))}
+              </StyledList>
+              <Separator />
+            </div>
+          ))}
     </StyledPostList>
   );
 };

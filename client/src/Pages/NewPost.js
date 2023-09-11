@@ -34,7 +34,7 @@ const NewPost = () => {
       title: title,
       body: body,
       tags: tags.split(",").map((tag) => tag.trim()),
-      published: true,
+      published: false,
     };
 
     try {

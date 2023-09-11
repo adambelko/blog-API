@@ -21,8 +21,6 @@ const AdminDashboard = ({ formatDate }) => {
   const [postList, setPostList] = useState([]);
   const [openStates, setOpenStates] = useState([]);
 
-  const dashboard = true;
-
   const fetchPostList = () => {
     axiosInstance
       .get("http://localhost:8000/")
@@ -50,7 +48,6 @@ const AdminDashboard = ({ formatDate }) => {
           <PostList
             postList={postList}
             formatDate={formatDate}
-            dashboard={dashboard}
             fetchPostList={fetchPostList}
             openStates={openStates}
             setOpenStates={setOpenStates}

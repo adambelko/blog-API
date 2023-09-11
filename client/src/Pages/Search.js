@@ -63,7 +63,11 @@ const Search = ({ formatDate }) => {
         {postList.length > 0 ? (
           <React.Fragment>
             <SectionTitle>Search results</SectionTitle>
-            <PostList postList={postList} formatDate={formatDate} />
+            <PostList
+              postList={postList}
+              onlyPublished={true}
+              formatDate={formatDate}
+            />
           </React.Fragment>
         ) : (
           noResults && <SectionTitle>No results found</SectionTitle>

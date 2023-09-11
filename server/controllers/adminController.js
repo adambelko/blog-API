@@ -31,7 +31,7 @@ exports.editPost_get = (req, res, next) => {
 };
 
 exports.editPost_post = asyncHandler(async (req, res, next) => {
-  const editPostId = req.params.postId;
+  const postId = req.params.postId;
 
   const editPostData = {
     title: req.body.title,
@@ -40,19 +40,31 @@ exports.editPost_post = asyncHandler(async (req, res, next) => {
     published: req.body.published,
   };
 
-  const result = await Post.updateOne({ _id: editPostId }, editPostData);
+  await Post.updateOne({ _id: postId }, editPostData);
 
   res.json({ message: "Post editted successfully" });
 });
 
 exports.deletePost_post = asyncHandler(async (req, res, next) => {
-  const deletePost = req.params.postId;
+  const postId = req.params.postId;
 
-  const result = await Post.deleteOne({ _id: deletePost });
+  await Post.deleteOne({ _id: postId });
 
   res.json({ message: "Post deleted successfully" });
 });
 
-exports.changePostPublicity_post = asyncHandler((req, res, next) => {
-  res.send("publish / unpublish post not implemented yet");
+exports.changePostPublicity_post = asyncHandler(async (req, res, next) => {
+  const postId = req.params.postId;
+
+  const currentPost = await Post.findById(postId);
+
+  if (!currentPost) {
+    return res.status(404).json({ message: "Post not found" });
+  }
+
+  currentPost.published = !currentPost.published;
+
+  await currentPost.save();
+
+  res.status(200);
 });
