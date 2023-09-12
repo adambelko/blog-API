@@ -13,6 +13,7 @@ import AdminDashboard from "../pages/AdminDashboard";
 const StyledMain = styled.main`
   display: flex;
   flex-direction: column;
+  height: 100vh;
   max-width: 685px;
   margin: auto;
 `;

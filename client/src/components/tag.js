@@ -21,7 +21,13 @@ const Tag = ({ formatDate }) => {
   return (
     <Wrapper>
       <Title>Posts with tag "{displayTag}"</Title>
-      {postList && <PostList postList={postList} formatDate={formatDate} />}
+      {postList && (
+        <PostList
+          postList={postList}
+          formatDate={formatDate}
+          onlyPublished={true}
+        />
+      )}
     </Wrapper>
   );
 };

@@ -9,32 +9,27 @@ exports.postList_get = asyncHandler(async (req, res, next) => {
 });
 
 exports.tagList_get = asyncHandler(async (req, res, next) => {
-  const posts = await Post.find({}, ["tags", "formattedTags"]);
+  const posts = await Post.find({}, ["tags"]);
   const tagList = posts.reduce((tags, post) => {
     return tags.concat(post.tags);
   }, []);
 
   const uniqueTags = Array.from(new Set(tagList));
-  uniqueTags.sort();
+  uniqueTags.sort((a, b) => a.localeCompare(b));
 
-  const formattedTagList = Array.from(
-    new Set(posts.flatMap((post) => post.formattedTags))
-  );
-  formattedTagList.sort();
-
-  res.json({ reguralTags: uniqueTags, formattedTags: formattedTagList });
+  res.json({ tagList: uniqueTags });
 });
 
 exports.tag_get = asyncHandler(async (req, res, next) => {
   const tag = req.params.tag;
 
-  const posts = await Post.find({ formattedTags: tag });
+  const postList = await Post.find({ formattedTags: tag });
 
-  if (!posts || posts.length === 0) {
+  if (!postList || postList.length === 0) {
     return res.status(404).json({ message: "No posts found with this tag." });
   }
 
-  res.json({ postList: posts });
+  res.json({ postList });
 });
 
 exports.search_post = asyncHandler(async (req, res, next) => {

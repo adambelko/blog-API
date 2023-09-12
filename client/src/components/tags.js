@@ -1,7 +1,7 @@
-import axios from "axios";
+import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import axios from "axios";
 
 const Wrapper = styled.div`
   flex-wrap: wrap;
@@ -24,21 +24,17 @@ const Tags = () => {
   useEffect(() => {
     axios
       .get("http://localhost:8000/tags/")
-      .then((res) => setTagList(res.data))
+      .then((res) => setTagList(res.data.tagList))
       .catch((err) => console.log(err));
   }, []);
 
-  const { reguralTags, formattedTags } = tagList;
+  const formattedTag = (tag) => tag.replace(/\s+/g, "-").toLowerCase();
+
   return (
     <Wrapper>
-      {reguralTags &&
-        formattedTags &&
-        reguralTags.map((tag, index) => (
-          <Link
-            key={index}
-            to={`tags/${formattedTags[index]}`}
-            state={{ tag: tag }}
-          >
+      {tagList &&
+        tagList.map((tag) => (
+          <Link key={tag} to={`tags/${formattedTag(tag)}`} state={{ tag: tag }}>
             <StyledButton>{tag}</StyledButton>
           </Link>
         ))}
