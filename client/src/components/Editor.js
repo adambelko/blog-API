@@ -18,7 +18,7 @@ const MyEditor = ({ setBody }) => {
       <Editor
         apiKey={REACT_APP_TINY_API_KEY}
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        initialValue=""
         init={{
           height: 700,
           menubar: true,

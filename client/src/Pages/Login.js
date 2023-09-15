@@ -47,6 +47,7 @@ const Login = () => {
         <FormSection>
           <label htmlFor="username">Username</label>
           <LoginStyledInput
+            id="username"
             name="username"
             type="text"
             value={username}
@@ -57,6 +58,7 @@ const Login = () => {
         <FormSection>
           <label htmlFor="password">Password</label>
           <LoginStyledInput
+            id="password"
             name="password"
             type="password"
             value={password}

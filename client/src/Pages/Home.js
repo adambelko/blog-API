@@ -3,7 +3,7 @@ import { Wrapper, SectionTitle } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import Tags from "../components/Tags";
+import Tags from "../pages/Tags";
 import PostList from "../components/PostList";
 
 const StyledSection = styled.section`
