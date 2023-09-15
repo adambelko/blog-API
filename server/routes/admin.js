@@ -3,10 +3,6 @@ const router = express.Router();
 
 const adminController = require("../controllers/adminController");
 
-router.get("/dashboard", adminController.dashboard_get);
-
-router.get("/new-post", adminController.newPost_get);
-
 router.post("/new-post", adminController.newPost_post);
 
 router.get("/:postId/edit-post", adminController.editPost_get);

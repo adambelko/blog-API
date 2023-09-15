@@ -32,8 +32,9 @@ exports.login_post = async (req, res, next) => {
   }
 
   const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, {
-    expiresIn: "3h",
+    expiresIn: "1h",
   });
 
   res.json({ token });
+  // res.header("Authorization", token).send(user);
 };

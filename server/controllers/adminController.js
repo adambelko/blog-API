@@ -1,14 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Post = require("../models/post");
 
-exports.dashboard_get = (req, res, next) => {
-  res.send("Admin dashboard");
-};
-
-exports.newPost_get = (req, res, next) => {
-  res.send("New post page");
-};
-
 exports.newPost_post = asyncHandler(async (req, res, next) => {
   const newPost = new Post({
     title: req.body.title,
@@ -23,7 +15,8 @@ exports.newPost_post = asyncHandler(async (req, res, next) => {
   });
 
   newPost.save();
-  res.send("New post created");
+
+  res.json({ message: "New post created" });
 });
 
 exports.editPost_get = asyncHandler(async (req, res, next) => {
@@ -31,13 +24,12 @@ exports.editPost_get = asyncHandler(async (req, res, next) => {
 
   const currentPost = await Post.findById(postId);
 
-  res.status(200).json({ currentPost });
+  res.json({ currentPost });
 });
 
 exports.editPost_post = asyncHandler(async (req, res, next) => {
   const postId = req.params.postId;
 
-  // Check if the post exists
   const currentPost = await Post.findById(postId);
 
   if (!currentPost) {
@@ -56,7 +48,7 @@ exports.editPost_post = asyncHandler(async (req, res, next) => {
 
   await currentPost.save();
 
-  return res.status(200).json({ message: "Post changes saved" });
+  res.json({ message: "Post changes saved" });
 });
 
 exports.deletePost_post = asyncHandler(async (req, res, next) => {
