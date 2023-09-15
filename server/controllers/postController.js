@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 
 const Post = require("../models/post");
+const Comment = require("../models/comment");
 
 exports.postList_get = asyncHandler(async (req, res, next) => {
   const postList = await Post.find({}).sort({ timestamp: -1 }).exec();
@@ -52,5 +53,22 @@ exports.postDetail_get = asyncHandler(async (req, res, next) => {
     return res.status(404).json({ message: "Post not found" });
   }
 
+  await post.populate("comments").execPopulate();
+
   res.json({ post });
+});
+
+exports.newComment_post = asyncHandler(async (res, req, next) => {
+  const postId = req.params.postId;
+
+  const newComment = new Comment({
+    username: res.body.username,
+    email: res.body.email,
+    website: res.body.website,
+    body: res.body.body,
+    timestamp: Date.now(),
+    post: postId,
+  });
+
+  await newComment.save();
 });

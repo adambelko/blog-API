@@ -14,7 +14,7 @@ exports.newPost_post = asyncHandler(async (req, res, next) => {
     timestamp: Date.now(),
   });
 
-  newPost.save();
+  await newPost.save();
 
   res.json({ message: "New post created" });
 });

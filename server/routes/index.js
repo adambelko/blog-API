@@ -14,4 +14,6 @@ router.get("/search", postController.search_post);
 
 router.get("/:postTitle", postController.postDetail_get);
 
+router.post("/:postId/new-comment", postController.newComment_post);
+
 module.exports = router;

@@ -10,8 +10,7 @@ const PostSchema = new Schema({
   tags: [{ type: String }],
   formattedTags: [{ type: String }],
   timestamp: { type: Date, default: Date.now(), required: true },
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
-
-PostSchema.virtual("url").get(() => `/${formattedTitle}`);
 
 module.exports = mongoose.model("Post", PostSchema);
