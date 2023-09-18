@@ -49,26 +49,31 @@ exports.postDetail_get = asyncHandler(async (req, res, next) => {
   const postTitle = req.params.postTitle;
   const post = await Post.findOne({ formattedTitle: postTitle });
 
+  const postComments = await Comment.find({ postId: post._id });
+  post.comments = postComments;
+
+  await post.populate("comments");
+
   if (!post) {
     return res.status(404).json({ message: "Post not found" });
   }
 
-  await post.populate("comments").execPopulate();
-
   res.json({ post });
 });
 
-exports.newComment_post = asyncHandler(async (res, req, next) => {
+exports.newComment_post = asyncHandler(async (req, res, next) => {
   const postId = req.params.postId;
 
   const newComment = new Comment({
-    username: res.body.username,
-    email: res.body.email,
-    website: res.body.website,
-    body: res.body.body,
+    username: req.body.username,
+    email: req.body.email,
+    website: req.body.website,
+    body: req.body.body,
     timestamp: Date.now(),
-    post: postId,
+    postId: postId,
   });
 
   await newComment.save();
+
+  res.json({});
 });

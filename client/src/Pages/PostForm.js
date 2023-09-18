@@ -19,11 +19,11 @@ const FormSection = styled(Wrapper)`
 `;
 
 const NewPost = () => {
-  const { postId } = useParams();
   const [mode, setMode] = useState("create");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [tags, setTags] = useState("");
+  const { postId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,11 +62,7 @@ const NewPost = () => {
 
         if (response.status === 200) navigate("/admin/dashboard");
       } else if (mode === "edit") {
-        const response = await axiosInstance.post(
-          `/admin/${postId}/edit-post`,
-          postData
-        );
-        console.log(response);
+        await axiosInstance.post(`/admin/${postId}/edit-post`, postData);
         navigate("/admin/dashboard");
       }
     } catch (error) {

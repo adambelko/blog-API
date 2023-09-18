@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Post = require("../models/post");
+const Comment = require("../models/comment");
 
 exports.newPost_post = asyncHandler(async (req, res, next) => {
   const newPost = new Post({
@@ -55,6 +56,7 @@ exports.deletePost_post = asyncHandler(async (req, res, next) => {
   const postId = req.params.postId;
 
   await Post.deleteOne({ _id: postId });
+  await Comment.deleteMany({ postId: postId });
 
   res.json({ message: "Post deleted successfully" });
 });

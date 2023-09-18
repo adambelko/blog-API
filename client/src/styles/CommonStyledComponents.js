@@ -21,7 +21,7 @@ export const SectionTitle = styled.h3`
 export const StyledInput = styled.input`
   font-size: 0.8em;
   padding: 0.2em;
-  border-radius: 7px;
+  border-radius: 6px;
   margin-bottom: 0.5em;
 `;
 
@@ -29,6 +29,6 @@ export const StyledButton = styled.button`
   font-size: 0.9em;
   width: fit-content;
   padding: 0.2em 0.7em;
-  border-radius: 7px;
+  border-radius: 6px;
   margin-bottom: 3em; ;
 `;

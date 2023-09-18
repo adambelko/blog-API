@@ -8,7 +8,7 @@ const CommentSchema = new Schema({
   website: { type: String },
   body: { type: String, required: true },
   timestamp: { type: Date, default: Date.now(), required: true },
-  post: { type: Schema.Types.ObjectId, ref: "Post", required: true },
+  postId: { type: Schema.Types.ObjectId, ref: "Post", required: true },
 });
 
-module.exports = mongoose.model("Message", CommentSchema);
+module.exports = mongoose.model("Comment", CommentSchema);

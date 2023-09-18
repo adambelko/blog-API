@@ -21,7 +21,6 @@ const StyledMain = styled.main`
 const Main = () => {
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
-
     const shortMonth = date.toLocaleString("default", { month: "short" });
     const day = date.getDate();
     const year = date.getFullYear();
