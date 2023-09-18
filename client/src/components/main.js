@@ -9,6 +9,7 @@ import Search from "../pages/Search";
 import PostForm from "../pages/PostForm";
 import PostDetail from "../pages/PostDetail";
 import AdminDashboard from "../pages/AdminDashboard";
+import PageNotFound from "../pages/PageNotFound";
 
 const StyledMain = styled.main`
   display: flex;
@@ -40,6 +41,7 @@ const Main = () => {
           element={<PostDetail formatDate={formatDate} />}
         />
         <Route path="/tags/:tag" element={<Tag formatDate={formatDate} />} />
+        <Route path="*" element={<PageNotFound />} />
 
         {/* Admin routes */}
         <Route
