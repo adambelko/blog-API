@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { Wrapper, Title, SectionTitle } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import DOMPurify from "dompurify";
 import Prism from "prismjs";
 import "../styles/prism.css";
-
 import CommentForm from "../components/CommentForm";
 
 const StyledArticle = styled.article`
@@ -53,7 +52,7 @@ const Comment = styled(Wrapper)`
   background-color: #ede9e6;
 `;
 
-const CommentHead = styled.div`
+const CommentUsername = styled.div`
   font-weight: bold;
 `;
 
@@ -65,8 +64,6 @@ const PostDetail = ({ formatDate }) => {
   const [post, setPost] = useState({});
   const { postTitle } = useParams();
   Prism.highlightAll();
-
-  console.log(post);
 
   useEffect(() => {
     fetchPostData();
@@ -87,10 +84,32 @@ const PostDetail = ({ formatDate }) => {
     return readingTimeMinutes;
   };
 
+  const sanitizeCommentUrl = (comment) => {
+    const userProvidedUrl = comment.website;
+
+    if (!userProvidedUrl) return <div>{comment.username}</div>;
+
+    // Regular expression to check if the URL starts with a valid protocol
+    const validProtocol = /^(https?):\/\//i;
+    if (validProtocol.test(userProvidedUrl)) {
+      return (
+        <a href={userProvidedUrl} target="_blank" rel="noopener noreferrer">
+          {comment.username}
+        </a>
+      );
+    } else {
+      const formattedUrl = `http://${userProvidedUrl}`;
+      return (
+        <a href={formattedUrl} target="_blank" rel="noopener noreferrer">
+          {comment.username}
+        </a>
+      );
+    }
+  };
+
   const sanitizedContent = DOMPurify.sanitize(post.body);
   const readingTime = estimateReadingTime(sanitizedContent);
 
-  console.log(post);
   return (
     <Wrapper>
       <StyledArticle>
@@ -107,7 +126,7 @@ const PostDetail = ({ formatDate }) => {
         {post.comments &&
           post.comments.map((comment) => (
             <Comment key={comment._id}>
-              <CommentHead>{comment.username}</CommentHead>
+              <CommentUsername>{sanitizeCommentUrl(comment)}</CommentUsername>
               <CommentBody>{comment.body}</CommentBody>
             </Comment>
           ))}

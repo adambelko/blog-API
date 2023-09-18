@@ -45,6 +45,12 @@ const CommentForm = ({ postId, fetchPostData }) => {
     try {
       await axios.post(`http://localhost:8000/${postId}/new-comment`, comment);
       fetchPostData();
+      setComment({
+        username: "",
+        email: "",
+        website: "",
+        body: "",
+      });
     } catch (err) {
       console.log(err);
     }
@@ -62,23 +68,26 @@ const CommentForm = ({ postId, fetchPostData }) => {
           <StyledInput
             type="text"
             name="username"
+            value={comment.username}
             onChange={handleChange}
             placeholder="Name"
           />
           <StyledInput
             type="email"
             name="email"
+            value={comment.email}
             onChange={handleChange}
             placeholder="Email"
           />
           <StyledInput
             type="text"
             name="website"
+            value={comment.website}
             onChange={handleChange}
             placeholder="Website"
           />
         </UserInfo>
-        <textarea name="body" onChange={handleChange} />
+        <textarea name="body" value={comment.body} onChange={handleChange} />
         <StyledButton type="submit">Post comment!</StyledButton>
       </StyledForm>
     </Wrapper>
