@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { Wrapper, Title, SectionTitle } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import DOMPurify from "dompurify";
 import Prism from "prismjs";
 import "../styles/prism.css";
 import CommentForm from "../components/CommentForm";
+import PageNotFound from "./PageNotFound";
 
 const StyledArticle = styled.article`
   display: flex;
@@ -61,8 +62,9 @@ const CommentBody = styled.div`
 `;
 
 const PostDetail = ({ formatDate }) => {
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState(null);
   const { postTitle } = useParams();
+
   Prism.highlightAll();
 
   useEffect(() => {
@@ -72,9 +74,23 @@ const PostDetail = ({ formatDate }) => {
   const fetchPostData = () => {
     axios
       .get(`http://localhost:8000/${postTitle}/`)
-      .then((res) => setPost(res.data.post))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        if (res.data.post && Object.keys(res.data.post).length > 0) {
+          setPost(res.data.post);
+        } else {
+          setPost(null);
+        }
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 404) {
+          setPost(null);
+        } else {
+          console.log(err);
+        }
+      });
   };
+
+  console.log(post);
 
   const estimateReadingTime = (text) => {
     const wordsPerMinute = 250;
@@ -107,31 +123,42 @@ const PostDetail = ({ formatDate }) => {
     }
   };
 
-  const sanitizedContent = DOMPurify.sanitize(post.body);
-  const readingTime = estimateReadingTime(sanitizedContent);
+  const sanitizedContent = post ? DOMPurify.sanitize(post.body) : "";
+  const readingTime = post ? estimateReadingTime(sanitizedContent) : 0;
+
+  console.log(post);
 
   return (
     <Wrapper>
-      <StyledArticle>
-        <PostTitle>{post.title}</PostTitle>
-        <PostData>
-          Posted on {formatDate(post.timestamp)} &#183; {readingTime} min read
-        </PostData>
-        <PostBody dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
-      </StyledArticle>
-      <CommentSection>
-        <CommentSectionHeader>
-          <SectionTitle>Discussion</SectionTitle>
-        </CommentSectionHeader>
-        {post.comments &&
-          post.comments.map((comment) => (
-            <Comment key={comment._id}>
-              <CommentUsername>{sanitizeCommentUrl(comment)}</CommentUsername>
-              <CommentBody>{comment.body}</CommentBody>
-            </Comment>
-          ))}
-        <CommentForm postId={post._id} fetchPostData={fetchPostData} />
-      </CommentSection>
+      {post !== null ? (
+        <>
+          <StyledArticle>
+            <PostTitle>{post.title}</PostTitle>
+            <PostData>
+              Posted on {formatDate(post.timestamp)} &#183; {readingTime} min
+              read
+            </PostData>
+            <PostBody dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+          </StyledArticle>
+          <CommentSection>
+            <CommentSectionHeader>
+              <SectionTitle>Discussion</SectionTitle>
+            </CommentSectionHeader>
+            {post.comments &&
+              post.comments.map((comment) => (
+                <Comment key={comment._id}>
+                  <CommentUsername>
+                    {sanitizeCommentUrl(comment)}
+                  </CommentUsername>
+                  <CommentBody>{comment.body}</CommentBody>
+                </Comment>
+              ))}
+            <CommentForm postId={post._id} fetchPostData={fetchPostData} />
+          </CommentSection>
+        </>
+      ) : (
+        <PageNotFound />
+      )}
     </Wrapper>
   );
 };

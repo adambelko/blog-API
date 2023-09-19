@@ -21,13 +21,13 @@ exports.tagList_get = asyncHandler(async (req, res, next) => {
   res.json({ tagList: uniqueTags });
 });
 
-exports.tag_get = asyncHandler(async (req, res, next) => {
+exports.postByTag_get = asyncHandler(async (req, res, next) => {
   const tag = req.params.tag;
 
   const postList = await Post.find({ formattedTags: tag });
 
   if (!postList || postList.length === 0) {
-    return res.status(404).json({ message: "No posts found with this tag." });
+    return res.status(404).json({});
   }
 
   res.json({ postList });
@@ -49,14 +49,14 @@ exports.postDetail_get = asyncHandler(async (req, res, next) => {
   const postTitle = req.params.postTitle;
   const post = await Post.findOne({ formattedTitle: postTitle });
 
+  if (!post) {
+    return res.status(404).json({});
+  }
+
   const postComments = await Comment.find({ postId: post._id });
   post.comments = postComments;
 
   await post.populate("comments");
-
-  if (!post) {
-    return res.status(404).json({ message: "Post not found" });
-  }
 
   res.json({ post });
 });
