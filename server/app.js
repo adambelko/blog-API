@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const passport = require("passport");
-require("./passportConfig")(passport);
+require("./config/passportConfig")(passport);
 
 const indexRouter = require("./routes/index");
 const tagRouter = require("./routes/tag");

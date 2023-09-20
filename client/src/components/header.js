@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import pepe from "../images/avatar.png";
+import Cookies from "js-cookie";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -48,7 +49,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const logout = (e) => {
-    localStorage.removeItem("token");
+    Cookies.remove("access_token");
     navigate("/");
   };
 
@@ -68,7 +69,7 @@ const Header = () => {
           <StyledLink to="/search">
             <li>SEARCH</li>
           </StyledLink>
-          {localStorage.getItem("token") && (
+          {Cookies.get("access_token") && (
             <React.Fragment>
               <StyledLink to="/admin/dashboard">
                 <li>DASHBOARD</li>

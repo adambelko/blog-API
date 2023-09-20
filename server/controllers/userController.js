@@ -31,10 +31,20 @@ exports.login_post = async (req, res, next) => {
     return res.status(400).json({ message: "Invalid username or password" });
   }
 
-  const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
+  const token = jwt.sign(
+    { username: user.username },
+    process.env.JWT_ACCESS_TOKEN_SECRET
+  );
 
-  res.json({ token });
-  // res.header("Authorization", token).send(user);
+  const refreshToken = jwt.sign(
+    { username: user.username },
+    process.env.JWT_REFRESH_TOKEN_SECRET
+  );
+
+  user.refreshToken = refreshToken;
+
+  await user.save();
+
+  res.cookie("access_token", token, { httpOnly: true });
+  res.json({ token, refreshToken });
 };

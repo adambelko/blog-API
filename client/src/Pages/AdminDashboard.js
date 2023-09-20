@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Cookies from "js-cookie";
 import {
   Wrapper,
   Title,
@@ -10,6 +11,7 @@ import { useEffect, useState } from "react";
 
 import PostList from "../components/PostList";
 import axiosInstance from "../utils/Axios";
+import PageNotFound from "./PageNotFound";
 
 const StyledLink = styled(Link)`
   &:hover {
@@ -37,7 +39,7 @@ const AdminDashboard = ({ formatDate }) => {
 
   return (
     <div>
-      {localStorage.getItem("token") && (
+      {Cookies.get("access_token") ? (
         <Wrapper>
           <Title>Admin Dashboard</Title>
           <SectionTitle>New Post</SectionTitle>
@@ -53,6 +55,8 @@ const AdminDashboard = ({ formatDate }) => {
             setOpenStates={setOpenStates}
           />
         </Wrapper>
+      ) : (
+        <PageNotFound />
       )}
     </div>
   );

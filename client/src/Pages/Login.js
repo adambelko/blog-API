@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Cookies from "js-cookie";
 import {
   Wrapper,
   Title,
@@ -32,11 +33,11 @@ const Login = () => {
         password,
       })
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
+        Cookies.set("access_token", res.data.token, { expires: 1 });
         window.location.href = "http://localhost:3000/admin/dashboard";
       })
       .catch((err) => {
-        console.error("Login failed:", err);
+        console.error(err);
       });
   };
 

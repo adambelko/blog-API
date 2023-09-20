@@ -7,9 +7,11 @@ import {
 } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import MyEditor from "../components/Editor";
 import axiosInstance from "../utils/Axios";
+import PageNotFound from "./PageNotFound";
 
 const FormSection = styled(Wrapper)`
   margin-bottom: 1em;
@@ -75,7 +77,7 @@ const NewPost = () => {
 
   return (
     <>
-      {localStorage.getItem("token") && (
+      {Cookies.get("access_token") ? (
         <Wrapper>
           <Title>{mode === "create" ? "New Post" : "Edit Post"}</Title>
           <form onSubmit={handleSubmit}>
@@ -110,6 +112,8 @@ const NewPost = () => {
             </StyledButton>
           </form>
         </Wrapper>
+      ) : (
+        <PageNotFound />
       )}
     </>
   );

@@ -90,8 +90,6 @@ const PostDetail = ({ formatDate }) => {
       });
   };
 
-  console.log(post);
-
   const estimateReadingTime = (text) => {
     const wordsPerMinute = 250;
     const wordCount = text.split(/\s+/).length;
@@ -125,8 +123,6 @@ const PostDetail = ({ formatDate }) => {
 
   const sanitizedContent = post ? DOMPurify.sanitize(post.body) : "";
   const readingTime = post ? estimateReadingTime(sanitizedContent) : 0;
-
-  console.log(post);
 
   return (
     <Wrapper>
