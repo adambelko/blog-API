@@ -62,7 +62,7 @@ const CommentBody = styled.div`
 `;
 
 const PostDetail = ({ formatDate }) => {
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState({});
   const { postTitle } = useParams();
 
   Prism.highlightAll();

@@ -16,4 +16,6 @@ router.post(
   adminController.changePostPublicity_post
 );
 
+router.post("/refresh-token", adminController.refreshToken_post);
+
 module.exports = router;

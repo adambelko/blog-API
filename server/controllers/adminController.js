@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const User = require("../models/user");
 
 exports.newPost_post = asyncHandler(async (req, res, next) => {
   const newPost = new Post({
@@ -76,3 +77,22 @@ exports.changePostPublicity_post = asyncHandler(async (req, res, next) => {
 
   res.json({ message: "Post publicity updated" });
 });
+
+exports.refreshToken_post = async (req, res, next) => {
+  const { refreshToken } = req.body;
+
+  const user = await User.findOne({ refreshToken });
+
+  if (!user) {
+    return res.status(401).json({ message: "Invalid refresh token" });
+  }
+
+  const token = jwt.sign(
+    { username: user.username },
+    process.env.JWT_ACCESS_TOKEN_SECRET,
+    { expiresIn: "1d" }
+  );
+
+  res.cookie("refresh_token", refreshToken, { httpOnly: true });
+  res.json({ token });
+};
