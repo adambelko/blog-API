@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import MyEditor from "../components/Editor";
-import axiosInstance from "../utils/Axios";
+import { protectedAxios } from "../utils/Axios";
 import PageNotFound from "./PageNotFound";
 
 const FormSection = styled(Wrapper)`
@@ -33,7 +33,7 @@ const NewPost = () => {
     if (postId) {
       setMode("edit");
 
-      axiosInstance
+      protectedAxios
         .get(`/admin/${postId}/edit-post`)
         .then((res) => {
           const { title, body, tags } = res.data.currentPost;
@@ -60,11 +60,11 @@ const NewPost = () => {
 
     try {
       if (mode === "create") {
-        const response = await axiosInstance.post("/admin/new-post", postData);
+        const response = await protectedAxios.post("/admin/new-post", postData);
 
         if (response.status === 200) navigate("/admin/dashboard");
       } else if (mode === "edit") {
-        await axiosInstance.post(`/admin/${postId}/edit-post`, postData);
+        await protectedAxios.post(`/admin/${postId}/edit-post`, postData);
         navigate("/admin/dashboard");
       }
     } catch (error) {

@@ -2,11 +2,15 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000",
+const protectedAxios = axios.create({
+  baseURL: "http://localhost:8080",
 });
 
-axiosInstance.interceptors.request.use(async (config) => {
+const unprotectedAxios = axios.create({
+  baseURL: "http://localhost:8080",
+});
+
+protectedAxios.interceptors.request.use(async (config) => {
   const token = Cookies.get("access_token");
   const expiration = jwtDecode(token).exp;
 
@@ -35,5 +39,4 @@ axiosInstance.interceptors.request.use(async (config) => {
   config.headers["Authorization"] = `Bearer ${token}`;
   return config;
 });
-
-export default axiosInstance;
+export { protectedAxios, unprotectedAxios };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { unprotectedAxios } from "../utils/Axios";
 
 const Wrapper = styled.div`
   flex-wrap: wrap;
@@ -22,8 +22,8 @@ const Tags = () => {
   const [tagList, setTagList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/tags/")
+    unprotectedAxios
+      .get("/tags/")
       .then((res) => setTagList(res.data.tagList))
       .catch((err) => console.log(err));
   }, []);

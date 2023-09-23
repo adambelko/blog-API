@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import PostList from "../components/PostList";
-import axiosInstance from "../utils/Axios";
+import { protectedAxios } from "../utils/Axios";
 import PageNotFound from "./PageNotFound";
 
 const StyledLink = styled(Link)`
@@ -24,7 +24,7 @@ const AdminDashboard = ({ formatDate }) => {
   const [openStates, setOpenStates] = useState([]);
 
   const fetchPostList = () => {
-    axiosInstance
+    protectedAxios
       .get("/")
       .then((res) => {
         setPostList(res.data.postList);

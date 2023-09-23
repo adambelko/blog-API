@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Wrapper, SectionTitle } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
-import axios from "axios";
 
+import { unprotectedAxios } from "../utils/Axios";
 import Tags from "../pages/Tags";
 import PostList from "../components/PostList";
 
@@ -16,8 +16,8 @@ const Index = ({ formatDate }) => {
   const [postList, setPostList] = useState();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/")
+    unprotectedAxios
+      .get("/")
       .then((res) => {
         setPostList(res.data.postList);
       })

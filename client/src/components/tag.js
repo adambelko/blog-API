@@ -1,7 +1,7 @@
 import { Wrapper, Title } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import axios from "axios";
+import { unprotectedAxios } from "../utils/Axios";
 
 import PostList from "./PostList";
 
@@ -12,8 +12,8 @@ const Tag = ({ formatDate }) => {
   const displayTag = location.state?.tag;
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8000/tags/${tag}`)
+    unprotectedAxios
+      .get(`/tags/${tag}`)
       .then((res) => setPostList(res.data.postList))
       .catch((err) => console.log(err));
   }, [tag]);

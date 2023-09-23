@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
-import axiosInstance from "../utils/Axios";
+import { protectedAxios } from "../utils/Axios";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 const StyledDropdown = styled.ul`
@@ -29,7 +29,7 @@ const DropdownButton = styled(RiArrowDropDownLine)`
 const Dropdown = (props) => {
   const handlePublishPost = async (postId) => {
     try {
-      await axiosInstance.post(`/admin/${postId}/change-post-publicity`);
+      await protectedAxios.post(`/admin/${postId}/change-post-publicity`);
       props.fetchPostList();
     } catch (error) {
       console.error("Error publishing post:", error);
@@ -38,7 +38,7 @@ const Dropdown = (props) => {
 
   const handleRemovePost = async (postId) => {
     try {
-      await axiosInstance.post(`/admin/${postId}/delete-post`);
+      await protectedAxios.post(`/admin/${postId}/delete-post`);
       props.fetchPostList();
     } catch (error) {
       console.error("Error removing post:", error);

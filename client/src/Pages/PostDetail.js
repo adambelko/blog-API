@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Wrapper, Title, SectionTitle } from "../styles/CommonStyledComponents";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { unprotectedAxios } from "../utils/Axios";
 import DOMPurify from "dompurify";
 import Prism from "prismjs";
 import "../styles/prism.css";
@@ -72,8 +72,8 @@ const PostDetail = ({ formatDate }) => {
   }, [postTitle]);
 
   const fetchPostData = () => {
-    axios
-      .get(`http://localhost:8000/${postTitle}/`)
+    unprotectedAxios
+      .get(`/${postTitle}/`)
       .then((res) => {
         if (res.data.post && Object.keys(res.data.post).length > 0) {
           setPost(res.data.post);

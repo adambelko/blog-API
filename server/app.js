@@ -16,11 +16,10 @@ const adminRouter = require("./routes/admin");
 const app = express();
 
 mongoose.set("strictQuery", false);
-const mongoDB = `mongodb+srv://${process.env.username}:${process.env.password}@cluster0.nrh9mxe.mongodb.net/?retryWrites=true`;
 
 main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(mongoDB);
+  await mongoose.connect(process.env.DATABASE_URL);
 }
 
 app.use(cors());
@@ -38,7 +37,7 @@ const jwtAuth = passport.authenticate("jwt", { session: false });
 
 app.use("/admin", jwtAuth, adminRouter);
 
-const port = 8000;
+const port = 8080;
 app.listen(port);
 
 // catch 404 and forward to error handler

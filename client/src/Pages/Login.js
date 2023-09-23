@@ -7,7 +7,7 @@ import {
   StyledButton,
 } from "../styles/CommonStyledComponents";
 import { useState } from "react";
-import axios from "axios";
+import { unprotectedAxios } from "../utils/Axios";
 
 const FormSection = styled.div`
   display: flex;
@@ -27,8 +27,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:8000/login", {
+    unprotectedAxios
+      .post("/login", {
         username,
         password,
       })
