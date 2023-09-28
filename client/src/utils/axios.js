@@ -2,12 +2,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 
+const localhost = process.env.REACT_APP_LOCALHOST;
+
 const protectedAxios = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: localhost,
 });
 
 const unprotectedAxios = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: localhost,
 });
 
 protectedAxios.interceptors.request.use(async (config) => {

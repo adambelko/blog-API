@@ -17,7 +17,7 @@ const Index = ({ formatDate }) => {
 
   useEffect(() => {
     unprotectedAxios
-      .get("/")
+      .get("/blog")
       .then((res) => {
         setPostList(res.data.postList);
       })

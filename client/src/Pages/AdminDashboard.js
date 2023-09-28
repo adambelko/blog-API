@@ -25,7 +25,7 @@ const AdminDashboard = ({ formatDate }) => {
 
   const fetchPostList = () => {
     protectedAxios
-      .get("/")
+      .get("/blog")
       .then((res) => {
         setPostList(res.data.postList);
         setOpenStates(new Array(res.data.postList.length).fill(false));

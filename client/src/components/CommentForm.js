@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { StyledInput, StyledButton } from "../styles/CommonStyledComponents";
 import { useState } from "react";
-import axios from "axios";
+import { unprotectedAxios } from "../utils/Axios";
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ const CommentForm = ({ postId, fetchPostData }) => {
     e.preventDefault();
 
     try {
-      await axios.post(`http://localhost:8000/${postId}/new-comment`, comment);
+      await unprotectedAxios.post(`/${postId}/new-comment`, comment);
       fetchPostData();
       setComment({
         username: "",

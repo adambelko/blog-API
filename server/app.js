@@ -41,7 +41,7 @@ const jwtAuth = passport.authenticate("jwt", { session: false });
 
 app.use("/admin", jwtAuth, adminRouter);
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 app.listen(port);
 
 // catch 404 and forward to error handler
