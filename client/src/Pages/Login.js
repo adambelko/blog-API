@@ -34,7 +34,8 @@ const Login = () => {
       })
       .then((res) => {
         Cookies.set("access_token", res.data.token, { expires: 1 });
-        window.location.href = "http://localhost:3000/admin/dashboard";
+        window.location.href =
+          "http://blog-api-production-0dd0.up.railway.app/admin/dashboard";
       })
       .catch((err) => {
         console.error(err);

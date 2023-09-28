@@ -2,14 +2,15 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 
-const localhost = process.env.REACT_APP_LOCALHOST;
+// const localhost = process.env.REACT_APP_LOCALHOST;
+const railwayServer = process.env.REACT_APP_RAILWAY_SERVER;
 
 const protectedAxios = axios.create({
-  baseURL: localhost,
+  baseURL: railwayServer,
 });
 
 const unprotectedAxios = axios.create({
-  baseURL: localhost,
+  baseURL: railwayServer,
 });
 
 protectedAxios.interceptors.request.use(async (config) => {
