@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 import Tag from "./Tag";
 import Home from "../pages/Home";
@@ -10,6 +11,7 @@ import PostForm from "../pages/PostForm";
 import PostDetail from "../pages/PostDetail";
 import AdminDashboard from "../pages/AdminDashboard";
 import PageNotFound from "../pages/PageNotFound";
+import Transition from "./Transition";
 
 const StyledMain = styled.main`
   display: flex;
@@ -29,28 +31,89 @@ const Main = () => {
     return `${shortMonth} ${day} ${year}`;
   };
 
+  const location = useLocation();
+
   return (
     <StyledMain>
-      <Routes>
-        <Route path="/" element={<Home formatDate={formatDate} />} />
-        <Route path="/story" element={<Story />} />
-        <Route path="/search" element={<Search formatDate={formatDate} />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/:postTitle"
-          element={<PostDetail formatDate={formatDate} />}
-        />
-        <Route path="/tags/:tag" element={<Tag formatDate={formatDate} />} />
-        <Route path="*" element={<PageNotFound />} />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route
+            path="/"
+            element={
+              <Transition>
+                <Home formatDate={formatDate} />
+              </Transition>
+            }
+          />
+          <Route
+            path="/story"
+            element={
+              <Transition>
+                <Story />
+              </Transition>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <Transition>
+                <Search formatDate={formatDate} />
+              </Transition>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/:postTitle"
+            element={
+              <Transition>
+                <PostDetail formatDate={formatDate} />
+              </Transition>
+            }
+          />
+          <Route
+            path="/tags/:tag"
+            element={
+              <Transition>
+                <Tag formatDate={formatDate} />
+              </Transition>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Transition>
+                <PageNotFound />
+              </Transition>
+            }
+          />
 
-        {/* Admin routes */}
-        <Route
-          path="/admin/dashboard"
-          element={<AdminDashboard formatDate={formatDate} />}
-        />
-        <Route path="/admin/new-post" element={<PostForm />} />
-        <Route path="/admin/:postId/edit-post" element={<PostForm />} />
-      </Routes>
+          {/* Admin routes */}
+          <Route
+            path="/admin/dashboard"
+            element={
+              <Transition>
+                <AdminDashboard formatDate={formatDate} />
+              </Transition>
+            }
+          />
+          <Route
+            path="/admin/new-post"
+            element={
+              <Transition>
+                <PostForm />
+              </Transition>
+            }
+          />
+          <Route
+            path="/admin/:postId/edit-post"
+            element={
+              <Transition>
+                <PostForm />
+              </Transition>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
     </StyledMain>
   );
 };
