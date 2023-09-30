@@ -29,8 +29,8 @@ const Index = ({ formatDate }) => {
       <StyledSection>
         <SectionTitle>Hey</SectionTitle>
         <span>
-          Welcome to my blog! Please take a seat and get ready for some lines of
-          code and personal thoughts!
+          Thank you for coming and welcome to my blog! Feel free to look around
+          or take a seat and read an article or two.
         </span>
       </StyledSection>
 

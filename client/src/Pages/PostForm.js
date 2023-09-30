@@ -105,7 +105,7 @@ const NewPost = () => {
             </FormSection>
             <FormSection>
               <label htmlFor="body">Content:</label>
-              <MyEditor setBody={setBody} />
+              <MyEditor setBody={setBody} initialContent={body} />
             </FormSection>
             <StyledButton type="submit">
               {mode === "create" ? "Create Post" : "Save Changes"}

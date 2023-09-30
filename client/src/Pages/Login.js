@@ -8,6 +8,7 @@ import {
 } from "../styles/CommonStyledComponents";
 import { useState } from "react";
 import { unprotectedAxios } from "../utils/Axios";
+import { useNavigate } from "react-router-dom";
 
 const FormSection = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const LoginStyledInput = styled(StyledInput)`
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,8 +36,7 @@ const Login = () => {
       })
       .then((res) => {
         Cookies.set("access_token", res.data.token, { expires: 1 });
-        window.location.href =
-          "http://blog-api-production-0dd0.up.railway.app/admin/dashboard";
+        navigate("/admin/dashboard");
       })
       .catch((err) => {
         console.error(err);

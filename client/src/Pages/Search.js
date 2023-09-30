@@ -7,8 +7,7 @@ import {
 } from "../styles/CommonStyledComponents";
 import { useState } from "react";
 import React from "react";
-import axios from "axios";
-
+import { unprotectedAxios } from "../utils/Axios";
 import PostList from "../components/PostList";
 
 const Wrapper = styled.div`
@@ -39,8 +38,8 @@ const Search = ({ formatDate }) => {
       return;
     }
 
-    axios
-      .get(`http://localhost:8000/search?query=${query}`)
+    unprotectedAxios
+      .get(`/search?query=${query}`)
       .then((res) => {
         setPostList(res.data.results);
         setNoResults(res.data.results.length === 0);

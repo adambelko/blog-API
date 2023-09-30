@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import DOMPurify from "dompurify";
 
-const MyEditor = ({ setBody }) => {
+const MyEditor = ({ setBody, initialContent }) => {
   const editorRef = useRef(null);
   const REACT_APP_TINY_API_KEY = process.env.REACT_APP_TINY_API_KEY;
 
@@ -18,7 +18,7 @@ const MyEditor = ({ setBody }) => {
       <Editor
         apiKey={REACT_APP_TINY_API_KEY}
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue=""
+        initialValue={initialContent}
         init={{
           height: 700,
           menubar: true,
@@ -56,7 +56,7 @@ const MyEditor = ({ setBody }) => {
           ],
 
           content_style:
-            "body { font-family: Albert Sans, Roboto, sans-serif; font-size:20px }",
+            "body { font-family: Albert Sans, Roboto, sans-serif; font-size:18px }",
         }}
       />
       <button type="button" onClick={log}>
