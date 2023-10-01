@@ -6,7 +6,13 @@ const User = require("../models/user");
 exports.newPost_post = asyncHandler(async (req, res, next) => {
   const newPost = new Post({
     title: req.body.title,
-    formattedTitle: req.body.title.replace(/\s+/g, "-").toLowerCase(),
+    formattedTitle: encodeURIComponent(
+      req.body.title
+        .trim()
+        .replace(/[^\w\s]/gi, "")
+        .replace(/\s+/g, "-")
+        .toLowerCase()
+    ),
     body: req.body.body,
     published: req.body.published,
     tags: req.body.tags,
@@ -39,10 +45,14 @@ exports.editPost_post = asyncHandler(async (req, res, next) => {
   }
 
   currentPost.title = req.body.title;
-  currentPost.formattedTitle = req.body.title
-    .replace(/\s+/g, "-")
-    .toLowerCase();
-  currentPost.body = req.body.body;
+  (currentPost.formattedTitle = encodeURIComponent(
+    req.body.title
+      .trim()
+      .replace(/[^\w\s]/gi, "")
+      .replace(/\s+/g, "-")
+      .toLowerCase()
+  )),
+    (currentPost.body = req.body.body);
   currentPost.tags = req.body.tags;
   currentPost.formattedTags = req.body.tags.map((tag) =>
     tag.replace(/\s+/g, "-").toLowerCase()
