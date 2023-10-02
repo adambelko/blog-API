@@ -1,6 +1,7 @@
 # Blog API
 
 <a href="https://www.adambelko.com">www.adambelko.com</a>
+
 Web application built with a RESTful API, featuring admin authentication, a custom Content Management System (CMS), and seamless integration between frontend and backend providing a dynamic and intuitive user experience.
 
 ## Key Features
