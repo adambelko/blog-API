@@ -4,18 +4,18 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
-exports.createUser_post = asyncHandler(async (req, res, next) => {
-  const hashedPassword = await bcrypt.hash(`${req.body.password}`, 10);
+// exports.createUser_post = asyncHandler(async (req, res, next) => {
+//   const hashedPassword = await bcrypt.hash(`${req.body.password}`, 10);
 
-  const user = new User({
-    username: req.body.username,
-    password: hashedPassword,
-    admin: req.body.admin,
-  });
+//   const user = new User({
+//     username: req.body.username,
+//     password: hashedPassword,
+//     admin: req.body.admin,
+//   });
 
-  const result = await user.save();
-  res.json({ message: "User created successfully", user: result });
-});
+//   const result = await user.save();
+//   res.json({ message: "User created successfully", user: result });
+// });
 
 exports.login_post = async (req, res, next) => {
   const { username, password } = req.body;
