@@ -34,6 +34,7 @@ const StyledDate = styled.div`
   color: #707170;
   font-weight: 400;
   margin-left: 2em;
+  white-space: nowrap;
 `;
 
 const PostList = (props) => {

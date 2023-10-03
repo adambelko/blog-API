@@ -5,21 +5,30 @@ import pepe from "../images/avatar.png";
 import Cookies from "js-cookie";
 
 const StyledHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
   margin: auto;
-  margin-top: 3em;
   max-width: 885px;
-  margin-bottom: 3em;
+  div {
+    display: flex;
+    margin: 3em 1.5em;
+    justify-content: space-between;
+  }
 `;
 
 const BlogNameWrapper = styled.h1`
   font-size: 1em;
   font-weight: 600;
+  white-space: nowrap;
+  margin-right: 1.5em;
   a {
     display: flex;
     align-items: center;
     gap: 0.5em;
+  }
+
+  span {
+    @media (max-width: 420px) {
+      display: none;
+    }
   }
 
   img {
@@ -55,32 +64,34 @@ const Header = () => {
 
   return (
     <StyledHeader>
-      <BlogNameWrapper>
-        <StyledLink to="/">
-          <img src={pepe} alt="img" />
-          <span>Adam Belko</span>
-        </StyledLink>
-      </BlogNameWrapper>
-      <NavigationWrapper>
-        <ul>
-          <StyledLink to="/story">
-            <li>STORY</li>
+      <div>
+        <BlogNameWrapper>
+          <StyledLink to="/">
+            <img src={pepe} alt="img" />
+            <span>Adam Belko</span>
           </StyledLink>
-          <StyledLink to="/search">
-            <li>SEARCH</li>
-          </StyledLink>
-          {Cookies.get("access_token") && (
-            <React.Fragment>
-              <StyledLink to="/admin/dashboard">
-                <li>DASHBOARD</li>
-              </StyledLink>
-              <StyledLink onClick={logout} to="/">
-                <li>LOGOUT</li>
-              </StyledLink>
-            </React.Fragment>
-          )}
-        </ul>
-      </NavigationWrapper>
+        </BlogNameWrapper>
+        <NavigationWrapper>
+          <ul>
+            <StyledLink to="/story">
+              <li>STORY</li>
+            </StyledLink>
+            <StyledLink to="/search">
+              <li>SEARCH</li>
+            </StyledLink>
+            {Cookies.get("access_token") && (
+              <React.Fragment>
+                <StyledLink to="/admin/dashboard">
+                  <li>DASHBOARD</li>
+                </StyledLink>
+                <StyledLink onClick={logout} to="/">
+                  <li>LOGOUT</li>
+                </StyledLink>
+              </React.Fragment>
+            )}
+          </ul>
+        </NavigationWrapper>
+      </div>
     </StyledHeader>
   );
 };
